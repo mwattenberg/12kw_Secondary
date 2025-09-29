@@ -30,7 +30,6 @@
 #define CYCFG_PERIPHERALS_H
 
 #include "cycfg_notices.h"
-#include "cy_lpcomp.h"
 #include "cy_hppass.h"
 #include "cy_sysint.h"
 #include "cy_scb_spi.h"
@@ -38,10 +37,11 @@
 #include "cy_scb_uart.h"
 #include "cy_tcpwm_pwm.h"
 #include "cycfg_routing.h"
+#include "cy_tcpwm_counter.h"
 
 #if defined (CY_USING_HAL)
-#include "cyhal_hwmgr.h"
 #include "cyhal.h"
+#include "cyhal_hwmgr.h"
 #endif /* defined (CY_USING_HAL) */
 
 #if defined (COMPONENT_MTB_HAL)
@@ -59,13 +59,13 @@ extern "C" {
 #endif /* defined(__cplusplus) */
 
 #define debug600_0_ENABLED 1U
-#define lpcomp_0_comp_0_ENABLED 1U
-#define lpcomp_0_comp_0_HW LPCOMP
-#define lpcomp_0_comp_0_CHANNEL CY_LPCOMP_CHANNEL_0
-#define lpcomp_0_comp_0_IRQ lpcomp_interrupt_IRQn
 #define pass_0_ENABLED 1U
 #define pass_0_ac_0_ENABLED 1U
 #define pass_0_ac_0_stt_0_vstate_0_ENABLED 1U
+#define pass_0_input_trigger_0_ENABLED 1U
+#define pass_0_input_trigger_0_IDX 0U
+#define pass_0_input_trigger_1_ENABLED 1U
+#define pass_0_input_trigger_1_IDX 1U
 #define pass_0_sar_0_ENABLED 1U
 #define pass_0_sar_0_VREF 3300U
 #define I_OUT_SEC_P_ENABLED 1U
@@ -104,6 +104,8 @@ extern "C" {
 #define pass_0_sar_0_dir_sampler_3_ENABLED 1U
 #define pass_0_sar_0_dir_sampler_5_ENABLED 1U
 #define pass_0_sar_0_dir_sampler_9_ENABLED 1U
+#define pass_0_sar_0_seq_0_grp_0_ENABLED 1U
+#define pass_0_sar_0_seq_0_grp_1_ENABLED 1U
 #define SPI_MASTER_ENABLED 1U
 #define SPI_MASTER_HW SCB1
 #define SPI_MASTER_IRQ scb_1_interrupt_IRQn
@@ -116,17 +118,14 @@ extern "C" {
 #define PWM_FAN_ENABLED 1U
 #define PWM_FAN_HW TCPWM0
 #define PWM_FAN_NUM 256UL
-
-extern const cy_stc_lpcomp_config_t lpcomp_0_comp_0_config;
-
-#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-extern const cyhal_resource_inst_t lpcomp_0_comp_0_obj;
-extern const cyhal_comp_configurator_t lpcomp_0_comp_0_hal_config;
-#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
-
-#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_COMP)
-extern const mtb_hal_comp_configurator_t lpcomp_0_comp_0_hal_config;
-#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_COMP) */
+#define TIMER_ADC_VOUT_IOUT_ENABLED 1U
+#define TIMER_ADC_VOUT_IOUT_HW TCPWM0
+#define TIMER_ADC_VOUT_IOUT_NUM 262UL
+#define TIMER_ADC_VOUT_IOUT_IRQ tcpwm_0_interrupts_262_IRQn
+#define TIMER_ADC_TEMP_ENABLED 1U
+#define TIMER_ADC_TEMP_HW TCPWM0
+#define TIMER_ADC_TEMP_NUM 263UL
+#define TIMER_ADC_TEMP_IRQ tcpwm_0_interrupts_263_IRQn
 
 extern const cy_stc_hppass_cfg_t pass_0_config;
 
@@ -147,6 +146,8 @@ extern const cy_stc_hppass_sar_chan_t VOUT_SEC_P_config;
 extern const cy_stc_hppass_sar_chan_t VOUT_SEC_N_config;
 extern const cy_stc_hppass_sar_chan_t TEMP1_config;
 extern const cy_stc_hppass_sar_chan_t TEMP2_config;
+extern const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_0_config;
+extern const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_1_config;
 extern const cy_stc_scb_spi_config_t SPI_MASTER_config;
 
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
@@ -238,6 +239,52 @@ extern const cyhal_clock_t PWM_FAN_clock;
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
 extern const cyhal_pwm_configurator_t PWM_FAN_hal_config;
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+extern const cy_stc_tcpwm_counter_config_t TIMER_ADC_VOUT_IOUT_config;
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_resource_inst_t TIMER_ADC_VOUT_IOUT_obj;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+extern const cyhal_clock_t TIMER_ADC_VOUT_IOUT_clock;
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_timer_configurator_t TIMER_ADC_VOUT_IOUT_hal_config;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+extern const mtb_hal_peri_div_t TIMER_ADC_VOUT_IOUT_clock_ref;
+extern const mtb_hal_clock_t TIMER_ADC_VOUT_IOUT_hal_clock;
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER)
+extern const mtb_hal_timer_configurator_t TIMER_ADC_VOUT_IOUT_hal_config;
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER) */
+
+extern const cy_stc_tcpwm_counter_config_t TIMER_ADC_TEMP_config;
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_resource_inst_t TIMER_ADC_TEMP_obj;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+extern const cyhal_clock_t TIMER_ADC_TEMP_clock;
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_timer_configurator_t TIMER_ADC_TEMP_hal_config;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+extern const mtb_hal_peri_div_t TIMER_ADC_TEMP_clock_ref;
+extern const mtb_hal_clock_t TIMER_ADC_TEMP_hal_clock;
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER)
+extern const mtb_hal_timer_configurator_t TIMER_ADC_TEMP_hal_config;
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER) */
 
 void pass_0_start(void);
 void init_cycfg_peripherals(void);

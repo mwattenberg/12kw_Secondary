@@ -3,6 +3,13 @@
     <Devices>
         <Device mpn="PSC3M5FDS2LGQ1">
             <BlockConfig>
+                <Personality template="altsystick" version="3.0" instance="oLo63_lrdaY">
+                    <Block location="cpuss[0].systick_s[0]" locked="true"/>
+                    <Parameters>
+                        <Param id="interval" value="100"/>
+                        <Param id="sourceClock" value="imo"/>
+                    </Parameters>
+                </Personality>
                 <Personality template="dap" version="2.0" instance="xJ5MHJqvPA0">
                     <Block location="debug600[0]" locked="true"/>
                     <Parameters>
@@ -370,17 +377,6 @@
                         <Param id="vtrip" value="CY_GPIO_VTRIP_CMOS"/>
                     </Parameters>
                 </Personality>
-                <Personality template="lpcomp" version="3.0" instance="AL1mZ1oSebY">
-                    <Block location="lpcomp[0].comp[0]" locked="true"/>
-                    <Parameters>
-                        <Param id="Hysteresis" value="true"/>
-                        <Param id="LocalVrefInput" value="false"/>
-                        <Param id="OutputConfiguration" value="CY_LPCOMP_OUT_DIRECT"/>
-                        <Param id="PowerSpeed" value="CY_LPCOMP_MODE_NORMAL"/>
-                        <Param id="PulseInterruptConfiguration" value="CY_LPCOMP_INTR_RISING"/>
-                        <Param id="inFlash" value="true"/>
-                    </Parameters>
-                </Personality>
                 <Personality template="hppass" version="1.0" instance="2RWKAVXsQUQ">
                     <Block location="pass[0]" locked="true"/>
                     <Parameters>
@@ -398,6 +394,22 @@
                         <Param id="count" value="1"/>
                         <Param id="doutUnlock" value="false"/>
                         <Param id="intr" value="false"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="hppass_in_trig" version="1.0" instance="44YQKPJcUY0">
+                    <Block location="pass[0].input_trigger[0]" locked="true"/>
+                    <Parameters>
+                        <Param id="dsync" value="true"/>
+                        <Param id="mode" value="CY_HPPASS_PULSE_ON_POS_DOUBLE_SYNC"/>
+                        <Param id="sel" value="CY_HPPASS_TR_HW_A"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="hppass_in_trig" version="1.0" instance="BqaWcDvuAtk">
+                    <Block location="pass[0].input_trigger[1]" locked="true"/>
+                    <Parameters>
+                        <Param id="dsync" value="true"/>
+                        <Param id="mode" value="CY_HPPASS_PULSE_ON_POS_DOUBLE_SYNC"/>
+                        <Param id="sel" value="CY_HPPASS_TR_HW_A"/>
                     </Parameters>
                 </Personality>
                 <Personality template="hppass_sar" version="1.0" instance="Hmv0to5azpA">
@@ -422,7 +434,7 @@
                     </Block>
                     <Parameters>
                         <Param id="avg" value="CY_HPPASS_SAR_AVG_DISABLED"/>
-                        <Param id="diff" value="true"/>
+                        <Param id="diff" value="false"/>
                         <Param id="fifoLoc" value="CY_HPPASS_FIFO_DISABLED"/>
                         <Param id="limitLoc" value="CY_HPPASS_SAR_LIMIT_DISABLED"/>
                         <Param id="sign" value="false"/>
@@ -449,7 +461,7 @@
                     </Block>
                     <Parameters>
                         <Param id="avg" value="CY_HPPASS_SAR_AVG_DISABLED"/>
-                        <Param id="diff" value="true"/>
+                        <Param id="diff" value="false"/>
                         <Param id="fifoLoc" value="CY_HPPASS_FIFO_DISABLED"/>
                         <Param id="limitLoc" value="CY_HPPASS_SAR_LIMIT_DISABLED"/>
                         <Param id="sign" value="false"/>
@@ -502,6 +514,9 @@
                 </Personality>
                 <Personality template="hppass_sar_dir_samp" version="1.0" instance="7qFBkXhVNCE">
                     <Block location="pass[0].sar[0].dir_sampler[1]" locked="true"/>
+                    <Parameters>
+                        <Param id="gain" value="CY_HPPASS_SAR_SAMP_GAIN_1"/>
+                    </Parameters>
                 </Personality>
                 <Personality template="hppass_sar_dir_samp" version="1.0" instance="eD866hGLLk4">
                     <Block location="pass[0].sar[0].dir_sampler[2]" locked="true"/>
@@ -511,6 +526,9 @@
                 </Personality>
                 <Personality template="hppass_sar_dir_samp" version="1.0" instance="T1YlRUc5X4w">
                     <Block location="pass[0].sar[0].dir_sampler[3]" locked="true"/>
+                    <Parameters>
+                        <Param id="gain" value="CY_HPPASS_SAR_SAMP_GAIN_1"/>
+                    </Parameters>
                 </Personality>
                 <Personality template="hppass_sar_dir_samp" version="1.0" instance="tIBkITdydmw">
                     <Block location="pass[0].sar[0].dir_sampler[5]" locked="true"/>
@@ -522,6 +540,50 @@
                     <Block location="pass[0].sar[0].dir_sampler[9]" locked="true"/>
                     <Parameters>
                         <Param id="gain" value="CY_HPPASS_SAR_SAMP_GAIN_1"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="hppass_sar_seq_grp" version="2.0" instance="HhYSo4pUjIY">
+                    <Block location="pass[0].sar[0].seq[0].grp[0]" locked="true"/>
+                    <Parameters>
+                        <Param id="continuous" value="false"/>
+                        <Param id="dirSampEn0r" value="true"/>
+                        <Param id="dirSampEn10r" value="false"/>
+                        <Param id="dirSampEn11r" value="false"/>
+                        <Param id="dirSampEn1r" value="false"/>
+                        <Param id="dirSampEn2r" value="true"/>
+                        <Param id="dirSampEn3r" value="false"/>
+                        <Param id="dirSampEn4r" value="false"/>
+                        <Param id="dirSampEn5r" value="false"/>
+                        <Param id="dirSampEn9r" value="false"/>
+                        <Param id="muxSampEn0" value="false"/>
+                        <Param id="muxSampEn1" value="false"/>
+                        <Param id="muxSampEn2" value="false"/>
+                        <Param id="muxSampEn3" value="false"/>
+                        <Param id="priority" value="true"/>
+                        <Param id="sampTimer" value="CY_HPPASS_SAR_SAMP_TIME_DISABLED"/>
+                        <Param id="trig" value="CY_HPPASS_SAR_TRIG_0"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="hppass_sar_seq_grp" version="2.0" instance="hTNRCIFHAIQ">
+                    <Block location="pass[0].sar[0].seq[0].grp[1]" locked="true"/>
+                    <Parameters>
+                        <Param id="continuous" value="false"/>
+                        <Param id="dirSampEn0r" value="false"/>
+                        <Param id="dirSampEn10r" value="false"/>
+                        <Param id="dirSampEn11r" value="false"/>
+                        <Param id="dirSampEn1r" value="false"/>
+                        <Param id="dirSampEn2r" value="false"/>
+                        <Param id="dirSampEn3r" value="false"/>
+                        <Param id="dirSampEn4r" value="false"/>
+                        <Param id="dirSampEn5r" value="true"/>
+                        <Param id="dirSampEn9r" value="true"/>
+                        <Param id="muxSampEn0" value="false"/>
+                        <Param id="muxSampEn1" value="false"/>
+                        <Param id="muxSampEn2" value="false"/>
+                        <Param id="muxSampEn3" value="false"/>
+                        <Param id="priority" value="false"/>
+                        <Param id="sampTimer" value="CY_HPPASS_SAR_SAMP_TIME_DISABLED"/>
+                        <Param id="trig" value="CY_HPPASS_SAR_TRIG_DISABLED"/>
                     </Parameters>
                 </Personality>
                 <Personality template="pclk_v2" version="1.0" instance="SATNIEcXGbw">
@@ -547,8 +609,8 @@
                 <Personality template="pclk_v2" version="1.0" instance="PvXPwHh_qhg">
                     <Block location="peri[0].group[4].div_16_5[0]" locked="true"/>
                     <Parameters>
-                        <Param id="fracDivider" value="8"/>
-                        <Param id="intDivider" value="11"/>
+                        <Param id="fracDivider" value="20"/>
+                        <Param id="intDivider" value="5"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -561,6 +623,18 @@
                     <Parameters>
                         <Param id="fracDivider" value="0"/>
                         <Param id="intDivider" value="1"/>
+                        <Param id="startOnReset" value="true"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="pclk_v2" version="1.0" instance="Nuat0PzA0zI">
+                    <Block location="peri[0].group[5].div_8[1]" locked="true">
+                        <Aliases>
+                            <Alias value="PWM_CLK_SLOW"/>
+                        </Aliases>
+                    </Block>
+                    <Parameters>
+                        <Param id="fracDivider" value="0"/>
+                        <Param id="intDivider" value="10"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -620,7 +694,7 @@
                     </Block>
                     <Parameters>
                         <Param id="ApiMode" value="HIGH_LEVEL"/>
-                        <Param id="BaudRate" value="1000000"/>
+                        <Param id="BaudRate" value="2000000"/>
                         <Param id="BitsOrder" value="CY_SCB_UART_LSB_FIRST"/>
                         <Param id="BreakLevel" value="0"/>
                         <Param id="BreakSignalBits" value="11"/>
@@ -721,7 +795,7 @@
                         <Param id="ClkHfCsv" value="false"/>
                         <Param id="accuracyCsv" value="99"/>
                         <Param id="actionCsv" value="FAULT"/>
-                        <Param id="divider" value="2"/>
+                        <Param id="divider" value="1"/>
                         <Param id="sourceClockCsv" value="IMO"/>
                         <Param id="sourceClockNumber" value="1"/>
                     </Parameters>
@@ -965,6 +1039,74 @@
                         <Param id="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_DISABLED"/>
                     </Parameters>
                 </Personality>
+                <Personality template="mxs40timercounter_ver2" version="1.0" instance="xUM_K4J0iZ0">
+                    <Block location="tcpwm[0].group[1].cnt[6]" locked="true">
+                        <Aliases>
+                            <Alias value="TIMER_ADC_VOUT_IOUT"/>
+                        </Aliases>
+                    </Block>
+                    <Parameters>
+                        <Param id="Capture0Input" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="Capture1Input" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="ClockPrescaler" value="CY_TCPWM_COUNTER_PRESCALER_DIVBY_1"/>
+                        <Param id="Compare0" value="16384"/>
+                        <Param id="Compare1" value="16384"/>
+                        <Param id="Compare2" value="16384"/>
+                        <Param id="Compare3" value="16384"/>
+                        <Param id="CompareOrCapture" value="CY_TCPWM_COUNTER_MODE_CAPTURE"/>
+                        <Param id="CountDirection" value="CY_TCPWM_COUNTER_COUNT_UP"/>
+                        <Param id="CountInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="EnableCompare0Swap" value="false"/>
+                        <Param id="EnableCompare1Swap" value="false"/>
+                        <Param id="InterruptCC0" value="false"/>
+                        <Param id="InterruptCC1" value="false"/>
+                        <Param id="InterruptTC" value="true"/>
+                        <Param id="Period" value="32768"/>
+                        <Param id="ReloadInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="RunMode" value="CY_TCPWM_COUNTER_CONTINUOUS"/>
+                        <Param id="StartInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="StopInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="gf_enable" value="false"/>
+                        <Param id="inFlash" value="true"/>
+                        <Param id="swap_enable" value="false"/>
+                        <Param id="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_DISABLED"/>
+                        <Param id="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC"/>
+                    </Parameters>
+                </Personality>
+                <Personality template="mxs40timercounter_ver2" version="1.0" instance="Pa1w1S7LAB8">
+                    <Block location="tcpwm[0].group[1].cnt[7]" locked="true">
+                        <Aliases>
+                            <Alias value="TIMER_ADC_TEMP"/>
+                        </Aliases>
+                    </Block>
+                    <Parameters>
+                        <Param id="Capture0Input" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="Capture1Input" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="ClockPrescaler" value="CY_TCPWM_COUNTER_PRESCALER_DIVBY_1"/>
+                        <Param id="Compare0" value="16384"/>
+                        <Param id="Compare1" value="16384"/>
+                        <Param id="Compare2" value="16384"/>
+                        <Param id="Compare3" value="16384"/>
+                        <Param id="CompareOrCapture" value="CY_TCPWM_COUNTER_MODE_CAPTURE"/>
+                        <Param id="CountDirection" value="CY_TCPWM_COUNTER_COUNT_UP"/>
+                        <Param id="CountInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="EnableCompare0Swap" value="false"/>
+                        <Param id="EnableCompare1Swap" value="false"/>
+                        <Param id="InterruptCC0" value="false"/>
+                        <Param id="InterruptCC1" value="false"/>
+                        <Param id="InterruptTC" value="true"/>
+                        <Param id="Period" value="32768"/>
+                        <Param id="ReloadInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="RunMode" value="CY_TCPWM_COUNTER_CONTINUOUS"/>
+                        <Param id="StartInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="StopInput" value="CY_TCPWM_INPUT_DISABLED"/>
+                        <Param id="gf_enable" value="false"/>
+                        <Param id="inFlash" value="true"/>
+                        <Param id="swap_enable" value="false"/>
+                        <Param id="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_DISABLED"/>
+                        <Param id="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC"/>
+                    </Parameters>
+                </Personality>
             </BlockConfig>
             <Netlist>
                 <Net>
@@ -1004,6 +1146,14 @@
                     <Port name="tcpwm[0].group[1].cnt[0].tr_line[0]"/>
                 </Net>
                 <Net>
+                    <Port name="pass[0].input_trigger[0].tr_a_in[0]"/>
+                    <Port name="tcpwm[0].group[1].cnt[6].tr_out1[0]"/>
+                </Net>
+                <Net>
+                    <Port name="pass[0].input_trigger[1].tr_a_in[0]"/>
+                    <Port name="tcpwm[0].group[1].cnt[7].tr_out1[0]"/>
+                </Net>
+                <Net>
                     <Port name="peri[0].group[4].div_16_5[0].clk[0]"/>
                     <Port name="scb[2].clock_scb_en[0]"/>
                 </Net>
@@ -1012,9 +1162,14 @@
                     <Port name="scb[1].clock_scb_en[0]"/>
                 </Net>
                 <Net>
+                    <Port name="peri[0].group[5].div_8[1].clk[0]"/>
+                    <Port name="tcpwm[0].group[1].cnt[7].clock_counter_en[0]"/>
+                </Net>
+                <Net>
                     <Port name="peri[0].group[5].div_8[0].clk[0]"/>
                     <Port name="tcpwm[0].group[0].cnt[0].clock_counter_en[0]"/>
                     <Port name="tcpwm[0].group[1].cnt[0].clock_counter_en[0]"/>
+                    <Port name="tcpwm[0].group[1].cnt[6].clock_counter_en[0]"/>
                 </Net>
             </Netlist>
         </Device>

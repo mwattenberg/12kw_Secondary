@@ -18,7 +18,7 @@
 #define SCB_number UART_PowerScope_HW
 
 // Define the data type for each channel
-typedef uint16_t channel_data_t;
+typedef int16_t channel_data_t;
 
 // Define the number of frames and channels
 #define DataStream_NUMBER_OF_FRAMES 1UL	//1920		//Needs to be UL

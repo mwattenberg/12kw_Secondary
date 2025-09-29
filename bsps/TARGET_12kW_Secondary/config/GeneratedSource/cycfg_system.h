@@ -30,6 +30,7 @@
 #define CYCFG_SYSTEM_H
 
 #include "cycfg_notices.h"
+#include "cy_systick.h"
 #include "cy_sysclk.h"
 #include "cy_wdt.h"
 #include "cy_syspm.h"
@@ -42,6 +43,7 @@
 extern "C" {
 #endif /* defined(__cplusplus) */
 
+#define cpuss_0_systick_s_0_ENABLED 1U
 #define srss_0_clock_0_ENABLED 1U
 #define srss_0_clock_0_bakclk_0_ENABLED 1U
 #define srss_0_clock_0_dpll250_0_ENABLED 1U

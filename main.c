@@ -45,6 +45,9 @@
 *******************************************************************************/
 #include <stdint.h>
 #include "cybsp.h"
+#include "ADC.h"
+#include "SPI.h"
+#include "System.h"
 
 
 /*******************************************************************************
@@ -94,6 +97,11 @@ void init()
 
 	Cy_GPIO_Set(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_NUM);
 	Cy_GPIO_Clr(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_NUM);
+	
+	ADC_init();
+	SPI_init();
+	System_init();
+	
 }
 
 /*******************************************************************************

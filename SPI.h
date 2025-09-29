@@ -28,7 +28,7 @@ typedef struct SPI_data_t
 } SPI_data_t;
 
 void SPI_init();
-void SPI_SendBuffer(SPI_data_t);
+void SPI_SendBuffer(SPI_data_t* data);
 void SPI_calculateChecksum();
 
 #endif /* SPI_H_ */

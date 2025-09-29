@@ -30,37 +30,8 @@
 
 #define PWM_OC_THR_INPUT_DISABLED 0x7U
 #define PWM_FAN_INPUT_DISABLED 0x7U
-
-const cy_stc_lpcomp_config_t lpcomp_0_comp_0_config =
-{
-    .outputMode = CY_LPCOMP_OUT_DIRECT,
-    .hysteresis = CY_LPCOMP_HYST_ENABLE,
-    .power = CY_LPCOMP_MODE_NORMAL,
-    .intType = CY_LPCOMP_INTR_RISING,
-};
-
-#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-const cyhal_resource_inst_t lpcomp_0_comp_0_obj =
-{
-    .type = CYHAL_RSC_LPCOMP,
-    .block_num = 0U,
-    .channel_num = 0U,
-};
-const cyhal_comp_configurator_t lpcomp_0_comp_0_hal_config =
-{
-    .resource = &lpcomp_0_comp_0_obj,
-    .lpcomp = &lpcomp_0_comp_0_config,
-};
-#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
-
-#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_COMP)
-const mtb_hal_comp_configurator_t lpcomp_0_comp_0_hal_config =
-{
-    .resource_type = MTB_HAL_RSC_LPCOMP,
-    .channel_num = 0U,
-    .lpcomp = &lpcomp_0_comp_0_config,
-};
-#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_COMP) */
+#define TIMER_ADC_VOUT_IOUT_INPUT_DISABLED 0x7U
+#define TIMER_ADC_TEMP_INPUT_DISABLED 0x7U
 
 const cy_stc_hppass_cfg_t pass_0_config =
 {
@@ -69,7 +40,7 @@ const cy_stc_hppass_cfg_t pass_0_config =
         .sttEntriesNum = 1U,
         .stt = pass_0_ac_0_stt_0_config,
         .gpioOutEnMsk = 0U,
-        .startupClkDiv = 9U,
+        .startupClkDiv = 18U,
         .startup =
         {
             {
@@ -107,11 +78,11 @@ const cy_stc_hppass_cfg_t pass_0_config =
     .trigIn =
     {
         {
-            .type = CY_HPPASS_TR_DISABLED,
+            .type = CY_HPPASS_TR_HW_A,
             .hwMode = CY_HPPASS_PULSE_ON_POS_DOUBLE_SYNC,
         },
         {
-            .type = CY_HPPASS_TR_DISABLED,
+            .type = CY_HPPASS_TR_HW_A,
             .hwMode = CY_HPPASS_PULSE_ON_POS_DOUBLE_SYNC,
         },
         {
@@ -313,8 +284,8 @@ const cy_stc_hppass_sar_t pass_0_sar_0_config =
     },
     .grp =
     {
-        NULL, 
-        NULL, 
+        &pass_0_sar_0_seq_0_grp_0_config, 
+        &pass_0_sar_0_seq_0_grp_1_config, 
         NULL, 
         NULL, 
         NULL, 
@@ -349,7 +320,7 @@ const cy_stc_hppass_sar_t pass_0_sar_0_config =
 };
 const cy_stc_hppass_sar_chan_t I_OUT_SEC_P_config =
 {
-    .diff = true,
+    .diff = false,
     .sign = false,
     .avg = CY_HPPASS_SAR_AVG_DISABLED,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
@@ -367,7 +338,7 @@ const cy_stc_hppass_sar_chan_t I_OUT_SEC_N_config =
 };
 const cy_stc_hppass_sar_chan_t VOUT_SEC_P_config =
 {
-    .diff = true,
+    .diff = false,
     .sign = false,
     .avg = CY_HPPASS_SAR_AVG_DISABLED,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
@@ -400,6 +371,38 @@ const cy_stc_hppass_sar_chan_t TEMP2_config =
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
     .result = true,
     .fifo = CY_HPPASS_FIFO_DISABLED,
+};
+const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_0_config =
+{
+    .dirSampMsk = 0x5U,
+    .muxSampMsk = 0x0U,
+    .muxChanIdx =
+    {
+        0U, 
+        3U, 
+        1U, 
+        1U, 
+    },
+    .trig = CY_HPPASS_SAR_TRIG_0,
+    .sampTime = CY_HPPASS_SAR_SAMP_TIME_DISABLED,
+    .priority = true,
+    .continuous = false,
+};
+const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_1_config =
+{
+    .dirSampMsk = 0x220U,
+    .muxSampMsk = 0x0U,
+    .muxChanIdx =
+    {
+        0U, 
+        3U, 
+        1U, 
+        1U, 
+    },
+    .trig = CY_HPPASS_SAR_TRIG_DISABLED,
+    .sampTime = CY_HPPASS_SAR_SAMP_TIME_DISABLED,
+    .priority = false,
+    .continuous = false,
 };
 const cy_stc_scb_spi_config_t SPI_MASTER_config =
 {
@@ -816,6 +819,184 @@ const cyhal_pwm_configurator_t PWM_FAN_hal_config =
 };
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
 
+const cy_stc_tcpwm_counter_config_t TIMER_ADC_VOUT_IOUT_config =
+{
+    .period = 32768,
+    .clockPrescaler = CY_TCPWM_COUNTER_PRESCALER_DIVBY_1,
+    .runMode = CY_TCPWM_COUNTER_CONTINUOUS,
+    .countDirection = CY_TCPWM_COUNTER_COUNT_UP,
+    .compareOrCapture = CY_TCPWM_COUNTER_MODE_CAPTURE,
+    .compare0 = 16384,
+    .compare1 = 16384,
+    .enableCompareSwap = false,
+    .interruptSources = (CY_TCPWM_INT_ON_TC ) | (CY_TCPWM_INT_ON_CC0 & 0U) | (CY_TCPWM_INT_ON_CC1 & 0U),
+    .captureInputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .captureInput = CY_TCPWM_INPUT_0,
+    .reloadInputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .reloadInput = CY_TCPWM_INPUT_0,
+    .startInputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .startInput = CY_TCPWM_INPUT_0,
+    .stopInputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .stopInput = CY_TCPWM_INPUT_0,
+    .countInputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .countInput = CY_TCPWM_INPUT_1,
+    .capture1InputMode = TIMER_ADC_VOUT_IOUT_INPUT_DISABLED & 0x3U,
+    .capture1Input = CY_TCPWM_INPUT_0,
+    .compare2 = 16384,
+    .compare3 = 16384,
+    .enableCompare1Swap = false,
+    .trigger0Event = CY_TCPWM_CNT_TRIGGER_ON_DISABLED,
+    .trigger1Event = CY_TCPWM_CNT_TRIGGER_ON_TC,
+#if defined (CY_IP_MXS40TCPWM)
+    .buffer_swap_enable = false,
+    .direction_mode = CY_TCPWM_COUNTER_DIRECTION_DISABLE,
+    .glitch_filter_enable = false,
+    .gf_depth = CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0,
+#endif /* defined (CY_IP_MXS40TCPWM) */
+};
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_resource_inst_t TIMER_ADC_VOUT_IOUT_obj =
+{
+    .type = CYHAL_RSC_TCPWM,
+    .block_num = 1U,
+    .channel_num = 6U,
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+const cyhal_clock_t TIMER_ADC_VOUT_IOUT_clock =
+{
+    .block = CYHAL_CLOCK_BLOCK_PERIPHERAL5_8BIT,
+    .channel = 0,
+#if defined (CY_USING_HAL)
+    .reserved = false,
+    .funcs = NULL,
+#endif /* defined (CY_USING_HAL) */
+};
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_timer_configurator_t TIMER_ADC_VOUT_IOUT_hal_config =
+{
+    .resource = &TIMER_ADC_VOUT_IOUT_obj,
+    .config = &TIMER_ADC_VOUT_IOUT_config,
+    .clock = &TIMER_ADC_VOUT_IOUT_clock,
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+const mtb_hal_peri_div_t TIMER_ADC_VOUT_IOUT_clock_ref =
+{
+    .clk_dst = (en_clk_dst_t)PCLK_TCPWM0_CLOCK_COUNTER_EN262,
+    .div_type = CY_SYSCLK_DIV_8_BIT,
+    .div_num = 0,
+};
+const mtb_hal_clock_t TIMER_ADC_VOUT_IOUT_hal_clock =
+{
+    .clock_ref = &TIMER_ADC_VOUT_IOUT_clock_ref,
+    .interface = &mtb_hal_clock_peri_interface,
+};
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER)
+const mtb_hal_timer_configurator_t TIMER_ADC_VOUT_IOUT_hal_config =
+{
+    .tcpwm_base = TIMER_ADC_VOUT_IOUT_HW,
+    .clock = &TIMER_ADC_VOUT_IOUT_hal_clock,
+    .tcpwm_cntnum = 262U,
+};
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER) */
+
+const cy_stc_tcpwm_counter_config_t TIMER_ADC_TEMP_config =
+{
+    .period = 32768,
+    .clockPrescaler = CY_TCPWM_COUNTER_PRESCALER_DIVBY_1,
+    .runMode = CY_TCPWM_COUNTER_CONTINUOUS,
+    .countDirection = CY_TCPWM_COUNTER_COUNT_UP,
+    .compareOrCapture = CY_TCPWM_COUNTER_MODE_CAPTURE,
+    .compare0 = 16384,
+    .compare1 = 16384,
+    .enableCompareSwap = false,
+    .interruptSources = (CY_TCPWM_INT_ON_TC ) | (CY_TCPWM_INT_ON_CC0 & 0U) | (CY_TCPWM_INT_ON_CC1 & 0U),
+    .captureInputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .captureInput = CY_TCPWM_INPUT_0,
+    .reloadInputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .reloadInput = CY_TCPWM_INPUT_0,
+    .startInputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .startInput = CY_TCPWM_INPUT_0,
+    .stopInputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .stopInput = CY_TCPWM_INPUT_0,
+    .countInputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .countInput = CY_TCPWM_INPUT_1,
+    .capture1InputMode = TIMER_ADC_TEMP_INPUT_DISABLED & 0x3U,
+    .capture1Input = CY_TCPWM_INPUT_0,
+    .compare2 = 16384,
+    .compare3 = 16384,
+    .enableCompare1Swap = false,
+    .trigger0Event = CY_TCPWM_CNT_TRIGGER_ON_DISABLED,
+    .trigger1Event = CY_TCPWM_CNT_TRIGGER_ON_TC,
+#if defined (CY_IP_MXS40TCPWM)
+    .buffer_swap_enable = false,
+    .direction_mode = CY_TCPWM_COUNTER_DIRECTION_DISABLE,
+    .glitch_filter_enable = false,
+    .gf_depth = CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0,
+#endif /* defined (CY_IP_MXS40TCPWM) */
+};
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_resource_inst_t TIMER_ADC_TEMP_obj =
+{
+    .type = CYHAL_RSC_TCPWM,
+    .block_num = 1U,
+    .channel_num = 7U,
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+const cyhal_clock_t TIMER_ADC_TEMP_clock =
+{
+    .block = CYHAL_CLOCK_BLOCK_PERIPHERAL5_8BIT,
+    .channel = 1,
+#if defined (CY_USING_HAL)
+    .reserved = false,
+    .funcs = NULL,
+#endif /* defined (CY_USING_HAL) */
+};
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_timer_configurator_t TIMER_ADC_TEMP_hal_config =
+{
+    .resource = &TIMER_ADC_TEMP_obj,
+    .config = &TIMER_ADC_TEMP_config,
+    .clock = &TIMER_ADC_TEMP_clock,
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+const mtb_hal_peri_div_t TIMER_ADC_TEMP_clock_ref =
+{
+    .clk_dst = (en_clk_dst_t)PCLK_TCPWM0_CLOCK_COUNTER_EN263,
+    .div_type = CY_SYSCLK_DIV_8_BIT,
+    .div_num = 1,
+};
+const mtb_hal_clock_t TIMER_ADC_TEMP_hal_clock =
+{
+    .clock_ref = &TIMER_ADC_TEMP_clock_ref,
+    .interface = &mtb_hal_clock_peri_interface,
+};
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER)
+const mtb_hal_timer_configurator_t TIMER_ADC_TEMP_hal_config =
+{
+    .tcpwm_base = TIMER_ADC_TEMP_HW,
+    .clock = &TIMER_ADC_TEMP_hal_clock,
+    .tcpwm_cntnum = 263U,
+};
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_TIMER) */
+
 __WEAK void __NO_RETURN pass_0_error(cy_rslt_t error);
 
 __WEAK void __NO_RETURN pass_0_error(cy_rslt_t error)
@@ -842,6 +1023,8 @@ void init_cycfg_peripherals(void)
     {
         pass_0_error(hppassStatus);
     }
+    Cy_HPPASS_SAR_CrossTalkAdjust((uint8_t)1U << 0U);
+    Cy_HPPASS_SAR_CrossTalkAdjust((uint8_t)1U << 1U);
     Cy_SysClk_PeriPclkAssignDivider(PCLK_SCB1_CLOCK_SCB_EN, CY_SYSCLK_DIV_8_BIT, 0U);
     Cy_SysClk_PeriPclkAssignDivider(PCLK_SCB2_CLOCK_SCB_EN, CY_SYSCLK_DIV_16_5_BIT, 0U);
 #if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
@@ -856,14 +1039,23 @@ void init_cycfg_peripherals(void)
     Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
 #endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */
     Cy_SysClk_PeriphAssignDivider(PCLK_TCPWM0_CLOCK_COUNTER_EN256, CY_SYSCLK_DIV_8_BIT, 0U);
+#if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
+    Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
+#endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */
+    Cy_SysClk_PeriphAssignDivider(PCLK_TCPWM0_CLOCK_COUNTER_EN262, CY_SYSCLK_DIV_8_BIT, 0U);
+#if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
+    Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
+#endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */
+    Cy_SysClk_PeriphAssignDivider(PCLK_TCPWM0_CLOCK_COUNTER_EN263, CY_SYSCLK_DIV_8_BIT, 1U);
 }
 void reserve_cycfg_peripherals(void)
 {
 #if defined (CY_USING_HAL)
-    cyhal_hwmgr_reserve(&lpcomp_0_comp_0_obj);
     cyhal_hwmgr_reserve(&SPI_MASTER_obj);
     cyhal_hwmgr_reserve(&UART_PowerScope_obj);
     cyhal_hwmgr_reserve(&PWM_OC_THR_obj);
     cyhal_hwmgr_reserve(&PWM_FAN_obj);
+    cyhal_hwmgr_reserve(&TIMER_ADC_VOUT_IOUT_obj);
+    cyhal_hwmgr_reserve(&TIMER_ADC_TEMP_obj);
 #endif /* defined (CY_USING_HAL) */
 }

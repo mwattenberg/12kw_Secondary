@@ -108,11 +108,29 @@ extern "C" {
 #define PWM_CLK_GRP_NUM PWM_CLK_GRP_NUM
 #endif /* !defined (PWM_CLK_GRP_NUM) */
 
+#define PWM_CLK_SLOW_ENABLED 1U
+
+#if defined (CY_USING_HAL) || defined (CY_USING_HAL_LITE)
+#define PWM_CLK_SLOW_HW CYHAL_CLOCK_BLOCK_PERIPHERAL5_8BIT
+#endif /* defined (CY_USING_HAL) || defined (CY_USING_HAL_LITE) */
+
+#if !defined (CY_USING_HAL) && !defined (CY_USING_HAL_LITE)
+#define PWM_CLK_SLOW_HW CY_SYSCLK_DIV_8_BIT
+#endif /* !defined (CY_USING_HAL) && !defined (CY_USING_HAL_LITE) */
+
+#define PWM_CLK_SLOW_NUM 1U
+#define PWM_CLK_SLOW_GRP_NUM ((5U << PERI_PCLK_GR_NUM_Pos) | (0U << PERI_PCLK_INST_NUM_Pos))
+
+#if !defined (PWM_CLK_SLOW_GRP_NUM)
+#define PWM_CLK_SLOW_GRP_NUM PWM_CLK_SLOW_GRP_NUM
+#endif /* !defined (PWM_CLK_SLOW_GRP_NUM) */
+
 #if defined (CY_USING_HAL)
 extern const cyhal_resource_inst_t peri_0_group_4_div_16_5_0_obj;
 extern const cyhal_resource_inst_t SPI_CLK_obj;
 extern const cyhal_resource_inst_t peri_0_group_4_div_8_1_obj;
 extern const cyhal_resource_inst_t PWM_CLK_obj;
+extern const cyhal_resource_inst_t PWM_CLK_SLOW_obj;
 #endif /* defined (CY_USING_HAL) */
 
 void init_cycfg_clocks(void);
