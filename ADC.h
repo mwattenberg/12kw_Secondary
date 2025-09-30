@@ -12,8 +12,8 @@
 
 #define IOUT (ADC_config.results[0])
 #define VOUT (ADC_config.results[1])
-#define TEMP1 (ADC_config.results[3])
-#define TEMP2 (ADC_config.results[4])
+#define TEMP1 (ADC_config.results[2])
+#define TEMP2 (ADC_config.results[3])
 
 
 typedef volatile struct ADC_config_t

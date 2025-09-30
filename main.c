@@ -44,6 +44,7 @@
 * Header Files
 *******************************************************************************/
 #include <stdint.h>
+#include "PWM.h"
 #include "cybsp.h"
 #include "ADC.h"
 #include "SPI.h"
@@ -101,6 +102,10 @@ void init()
 	ADC_init();
 	SPI_init();
 	System_init();
+	PWM_initFan();
+	PWM_init_OCThreshold();
+	
+	PWM_fanSetDuty(0.5f);
 	
 }
 

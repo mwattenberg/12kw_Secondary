@@ -18,7 +18,7 @@ volatile ADC_config_t ADC_config;
 void ISR_VoutIoutEOC()
 {
 	IOUT =  Cy_HPPASS_SAR_Result_ChannelRead(0);
-	VOUT = Cy_HPPASS_SAR_Result_ChannelRead(3);
+	VOUT = Cy_HPPASS_SAR_Result_ChannelRead(2);
 	
     uint32_t interrupts = Cy_TCPWM_GetInterruptStatusMasked(TIMER_ADC_VOUT_IOUT_HW, TIMER_ADC_VOUT_IOUT_NUM);
     Cy_TCPWM_ClearInterrupt(TIMER_ADC_VOUT_IOUT_HW, TIMER_ADC_VOUT_IOUT_NUM, interrupts);
@@ -28,8 +28,8 @@ void ISR_VoutIoutEOC()
 
 void ISR_TempEOC()
 {
-	TEMP1 = Cy_HPPASS_SAR_Result_ChannelRead(5);
-	TEMP2 = Cy_HPPASS_SAR_Result_ChannelRead(5);
+	TEMP1 = Cy_HPPASS_SAR_Result_ChannelRead(5) / 4; //divide by 4 because of 4x averaging  
+	TEMP2 = Cy_HPPASS_SAR_Result_ChannelRead(9) / 4;
 	
     uint32_t interrupts = Cy_TCPWM_GetInterruptStatusMasked(TIMER_ADC_TEMP_HW, TIMER_ADC_TEMP_NUM);
     Cy_TCPWM_ClearInterrupt(TIMER_ADC_TEMP_HW, TIMER_ADC_TEMP_NUM, interrupts);

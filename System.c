@@ -8,6 +8,7 @@
 #include "ADC.h"
 #include "SPI.h"
 #include "DataStream.h"
+#include "_CONFIGURATION.h"
 #include "cy_gpio.h"
 #include "System.h"
 #include "PWM.h"
@@ -21,10 +22,10 @@ static void inline updatePowerScope()
 {
 	int16_t temp[DataStream_NUMBER_OF_CHANNELS];
 
-	temp[0] = (int16_t)(IOUT);
-	temp[1] = (int16_t)(VOUT);
-	temp[2] = (int16_t)(TEMP1);
-	temp[3] = (int16_t)(TEMP2);
+	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
+	temp[1] = (int16_t)(VOUT_CountsToVolts(VOUT));
+	temp[2] = (int16_t)(TEMP_CountsToCelsius(TEMP1));
+	temp[3] = (int16_t)(TEMP_CountsToCelsius(TEMP2));
 	temp[4] = counter;
 	temp[5] = 0;
 	temp[6] = 0;
@@ -67,26 +68,33 @@ void System_UpdateStateMachine()
 	switch (state)
 	{
 		case STATE_INIT:
-		myCounter = 0;
-		
-		Cy_GPIO_Set(PIN_LED_FAULT_PORT, PIN_LED_FAULT_PIN);
-		Cy_GPIO_Set(PIN_DISABLE_FAN_PORT, PIN_DISABLE_FAN_PIN);
-		
-		Cy_GPIO_Set(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_PIN);
-		Cy_GPIO_Clr(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_PIN);
+			myCounter = 0;
+			
+			Cy_GPIO_Set(PIN_LED_FAULT_PORT, PIN_LED_FAULT_PIN);
+			
+			Cy_GPIO_Set(PIN_DISABLE_FAN_PORT, PIN_DISABLE_FAN_PIN);
+			
+			Cy_GPIO_Set(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_PIN);
+			Cy_GPIO_Clr(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_PIN);
+			
+			PWM_fanSetDuty(0.0f);
 		
 			break;
 		case STATE_CHECK_FAN:
-		if(myCounter < 50)
-			PWM_setFanDuty(0.25f);
-		else if (myCounter < 100)
- 			PWM_setFanDuty(0.0f);
-		else
-		{
-			state = STATE_CHECK_VOUT;
-			myCounter = 0;
-		}
-			
+		
+			Cy_GPIO_Clr(PIN_DISABLE_FAN_PORT, PIN_DISABLE_FAN_PIN);
+		
+			if(myCounter < 50)
+				PWM_fanSetDuty(0.25f);
+			else if (myCounter < 100)
+	 			PWM_fanSetDuty(0.0f);
+			else
+			{
+				state = STATE_CHECK_VOUT;
+				myCounter = 0;
+			}
+				
+			myCounter++;
 			
 			break;
 		case STATE_CHECK_VOUT:
@@ -102,6 +110,9 @@ void System_UpdateStateMachine()
 		Cy_GPIO_Set(PIN_LED_RUN_PORT, PIN_LED_RUN_PIN);
 		doFanControl();
 			break;
+			
+			
+			
 			
 		case STATE_AC_LOSS:
 			Cy_GPIO_Set(PIN_AC_LOSS_PORT, PIN_AC_LOSS_PIN);

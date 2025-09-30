@@ -13,9 +13,9 @@
 #define OVERCURRENT_TO_DUTY(oc_threshold) (oc_threshold * 0.001f)
 
 void PWM_init_OCThreshold();
-void PWM_init_Fan();
+void PWM_initFan();
 
-void PWM_setFanDuty(float duty);
-void PWM_setOverCurrentDuty(float OC_threshold);
+void PWM_fanSetDuty(float duty);
+void PWM_setOverCurrentThreshold(float OC_threshold);
 
 #endif /* PWM_H_ */

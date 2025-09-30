@@ -358,7 +358,7 @@ const cy_stc_hppass_sar_chan_t TEMP1_config =
 {
     .diff = false,
     .sign = false,
-    .avg = CY_HPPASS_SAR_AVG_8,
+    .avg = CY_HPPASS_SAR_AVG_4,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
     .result = true,
     .fifo = CY_HPPASS_FIFO_DISABLED,
@@ -367,7 +367,7 @@ const cy_stc_hppass_sar_chan_t TEMP2_config =
 {
     .diff = false,
     .sign = false,
-    .avg = CY_HPPASS_SAR_AVG_8,
+    .avg = CY_HPPASS_SAR_AVG_4,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
     .result = true,
     .fifo = CY_HPPASS_FIFO_DISABLED,
@@ -399,7 +399,7 @@ const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_1_config =
         1U, 
         1U, 
     },
-    .trig = CY_HPPASS_SAR_TRIG_DISABLED,
+    .trig = CY_HPPASS_SAR_TRIG_1,
     .sampTime = CY_HPPASS_SAR_SAMP_TIME_DISABLED,
     .priority = false,
     .continuous = false,
@@ -769,7 +769,7 @@ const mtb_hal_peri_div_t PWM_FAN_clock_ref =
 {
     .clk_dst = (en_clk_dst_t)PCLK_TCPWM0_CLOCK_COUNTER_EN256,
     .div_type = CY_SYSCLK_DIV_8_BIT,
-    .div_num = 0,
+    .div_num = 1,
 };
 const mtb_hal_clock_t PWM_FAN_hal_clock =
 {
@@ -802,7 +802,7 @@ const cyhal_resource_inst_t PWM_FAN_obj =
 const cyhal_clock_t PWM_FAN_clock =
 {
     .block = CYHAL_CLOCK_BLOCK_PERIPHERAL5_8BIT,
-    .channel = 0,
+    .channel = 1,
 #if defined (CY_USING_HAL)
     .reserved = false,
     .funcs = NULL,
@@ -1038,7 +1038,7 @@ void init_cycfg_peripherals(void)
 #if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
     Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
 #endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */
-    Cy_SysClk_PeriphAssignDivider(PCLK_TCPWM0_CLOCK_COUNTER_EN256, CY_SYSCLK_DIV_8_BIT, 0U);
+    Cy_SysClk_PeriphAssignDivider(PCLK_TCPWM0_CLOCK_COUNTER_EN256, CY_SYSCLK_DIV_8_BIT, 1U);
 #if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
     Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
 #endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */

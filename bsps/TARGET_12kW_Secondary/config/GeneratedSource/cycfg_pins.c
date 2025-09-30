@@ -408,7 +408,7 @@ const cyhal_resource_inst_t PIN_AC_LOSS_obj =
 
 const cy_stc_gpio_pin_config_t PIN_LED_FAULT_config =
 {
-    .outVal = 1,
+    .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG,
     .hsiom = PIN_LED_FAULT_HSIOM,
     .intEdge = CY_GPIO_INTR_DISABLE,
@@ -489,7 +489,7 @@ const cyhal_resource_inst_t PIN_DISABLE_FAN_obj =
 
 const cy_stc_gpio_pin_config_t PIN_LED_RUN_config =
 {
-    .outVal = 1,
+    .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG,
     .hsiom = PIN_LED_RUN_HSIOM,
     .intEdge = CY_GPIO_INTR_DISABLE,

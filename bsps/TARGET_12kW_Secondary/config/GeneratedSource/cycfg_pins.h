@@ -345,7 +345,7 @@ extern "C" {
 #define PIN_LED_FAULT_PIN 0U
 #define PIN_LED_FAULT_NUM 0U
 #define PIN_LED_FAULT_DRIVEMODE CY_GPIO_DM_STRONG
-#define PIN_LED_FAULT_INIT_DRIVESTATE 1
+#define PIN_LED_FAULT_INIT_DRIVESTATE 0
 #ifndef ioss_0_port_8_pin_0_HSIOM
     #define ioss_0_port_8_pin_0_HSIOM HSIOM_SEL_GPIO
 #endif
@@ -408,7 +408,7 @@ extern "C" {
 #define PIN_LED_RUN_PIN 0U
 #define PIN_LED_RUN_NUM 0U
 #define PIN_LED_RUN_DRIVEMODE CY_GPIO_DM_STRONG
-#define PIN_LED_RUN_INIT_DRIVESTATE 1
+#define PIN_LED_RUN_INIT_DRIVESTATE 0
 #ifndef ioss_0_port_9_pin_0_HSIOM
     #define ioss_0_port_9_pin_0_HSIOM HSIOM_SEL_GPIO
 #endif
