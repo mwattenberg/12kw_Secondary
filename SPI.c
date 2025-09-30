@@ -20,15 +20,7 @@ void SPI_init()
 	//Context can also be null
 	Cy_SCB_SPI_Init(mSPI_HW, &mSPI_config, NULL);
 	Cy_SCB_SPI_Enable(mSPI_HW);
-	
-	masterData.Vout = 42;
-	masterData.Iout = 100;
-	masterData.Iout_Feedforward = 420;
-	masterData.Temp1 = 666;
-	masterData.Temp2 = 69;		
-	masterData.status = 0b10101010;
-	masterData.checksum = 0b11001100;
-	
+		
 }
 
 
