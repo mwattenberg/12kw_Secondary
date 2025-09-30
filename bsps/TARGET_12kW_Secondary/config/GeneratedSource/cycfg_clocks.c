@@ -64,7 +64,7 @@ const cyhal_resource_inst_t PWM_CLK_SLOW_obj =
 void init_cycfg_clocks(void)
 {
     Cy_SysClk_PeriPclkDisableDivider((en_clk_dst_t)PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM, CY_SYSCLK_DIV_16_5_BIT, 0U);
-    Cy_SysClk_PeriPclkSetFracDivider((en_clk_dst_t)PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM, CY_SYSCLK_DIV_16_5_BIT, 0U, 4U, 20U);
+    Cy_SysClk_PeriPclkSetFracDivider((en_clk_dst_t)PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM, CY_SYSCLK_DIV_16_5_BIT, 0U, 21U, 16U);
     Cy_SysClk_PeriPclkEnableDivider((en_clk_dst_t)PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM, CY_SYSCLK_DIV_16_5_BIT, 0U);
     Cy_SysClk_PeriPclkDisableDivider((en_clk_dst_t)SPI_CLK_GRP_NUM, CY_SYSCLK_DIV_8_BIT, 0U);
     Cy_SysClk_PeriPclkSetDivider((en_clk_dst_t)SPI_CLK_GRP_NUM, CY_SYSCLK_DIV_8_BIT, 0U, 0U);
