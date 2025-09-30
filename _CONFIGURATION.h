@@ -23,9 +23,9 @@
 
 #define TEMP_CelsiusOffset				(-20.5f)	//Vout = 0V at this value
 #define TEMP_CountsToCelsiusGain 		(0.0413f)			
-#define TEMP_CountsToCelsius(counts)	((counts) * TEMP_CountsToCelsiusGain - TEMP_CelsiusOffset/TEMP_CountsToCelsiusGain)
+#define TEMP_CountsToCelsius(counts)	((counts) * TEMP_CountsToCelsiusGain + TEMP_CelsiusOffset)
 #define TEMP_CelsiusToCountsGain 		(1/TEMP_CountsToCelsiusGain)
-#define TEMP_CelsiusToCounts(celsius)	((celsius) * VIN_VoltsToCountsGain + TEMP_CelsiusOffset*TEMP_CelsiusToCountsGain)
+#define TEMP_CelsiusToCounts(celsius)	((celsius) * TEMP_CelsiusToCountsGain + TEMP_CelsiusOffset/TEMP_CelsiusToCountsGain)
 
 
 
