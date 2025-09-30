@@ -9,32 +9,43 @@
 #include "SPI.h"
 #include "cy_scb_common.h"
 #include "cy_scb_spi.h"
+#include <stdint.h>
+#include <string.h>
 
-cy_stc_scb_spi_context_t context;
-uint16_t TxBuffer[16];
-uint16_t RxBuffer[16];
+SPI_masterData_t masterData;
+SPI_slaveData_t slaveData;
 
 void SPI_init()
 {
 	//Context can also be null
-	Cy_SCB_SPI_Init(mSPI_HW, &mSPI_config, &context);
+	Cy_SCB_SPI_Init(mSPI_HW, &mSPI_config, NULL);
 	Cy_SCB_SPI_Enable(mSPI_HW);
 	
-	
-	for(uint32_t i = 0; i < sizeof(TxBuffer); i++)
-	{
-		TxBuffer[i] = i;	
-	}
+	masterData.Vout = 42;
+	masterData.Iout = 100;
+	masterData.Iout_Feedforward = 420;
+	masterData.Temp1 = 666;
+	masterData.Temp2 = 69;		
+	masterData.status = 0b10101010;
+	masterData.checksum = 0b11001100;
 	
 }
 
 
-void SPI_SendBuffer(SPI_data_t* data)
+void SPI_DoTheThing()
 {
-	Cy_SCB_SPI_Transfer(mSPI_HW, TxBuffer, RxBuffer, sizeof(TxBuffer), &context);
+	Cy_SCB_SPI_WriteArray	(mSPI_HW, &masterData, sizeof(masterData));
+	Cy_SCB_SPI_ReadArray(mSPI_HW, &slaveData, sizeof(masterData));
 }
-void SPI_calculateChecksum()
+
+
+
+uint8_t SPI_calculateChecksum(SPI_masterData_t* data) 
 {
-	
-	
+    uint8_t checksum = 0;
+    for (uint16_t i = 0; i < sizeof(*data); i++) 
+    {
+        checksum ^= ((uint8_t*)data)[i];
+    }
+    return checksum;
 }

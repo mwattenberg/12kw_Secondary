@@ -13,6 +13,7 @@
 #include "System.h"
 #include "PWM.h"
 #include "cy_scb_spi.h"
+#include "cycfg_peripherals.h"
 #include <string.h>
 
 DataStream_data_buffer_t buffer;
@@ -26,9 +27,9 @@ static void inline updatePowerScope()
 
 //	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
 	temp[0] = (int16_t)((IOUT));
-	temp[1] = (int16_t)(VOUT_CountsToVolts(VOUT));
-	temp[2] = (int16_t)(TEMP_CountsToCelsius(TEMP1));
-	temp[3] = (int16_t)(TEMP_CountsToCelsius(TEMP2));
+	temp[1] = (int16_t)(10*VOUT_CountsToVolts(VOUT));
+	temp[2] = (int16_t)(10*TEMP_CountsToCelsius(TEMP1));
+	temp[3] = (int16_t)(10*TEMP_CountsToCelsius(TEMP2));
 
 	
 	temp[4] = counter;
@@ -47,6 +48,20 @@ static void inline updatePowerScope()
 
 void doFanControl()
 {
+	
+}
+
+
+void sendSPIData()
+{
+	masterData.Vout = VOUT;
+	masterData.Iout = IOUT;
+	masterData.Iout_Feedforward = 42;	//here we have to implement bandpass filter for feedforward
+	masterData.Temp1 = TEMP1;
+	masterData.Temp2 = TEMP2;
+	masterData.status = 10;
+	masterData.checksum = SPI_calculateChecksum(&masterData);
+	SPI_DoTheThing();
 	
 }
 
@@ -70,8 +85,8 @@ void System_UpdateStateMachine()
 	if(Cy_SCB_UART_IsTxComplete(UART_PowerScope_HW))
 		updatePowerScope();
 	
-	if(	Cy_SCB_SPI_IsTxComplete(mSPI_HW))
-		SPI_SendBuffer(NULL);
+	if(Cy_SCB_SPI_IsTxComplete(mSPI_HW))
+		sendSPIData();	
 	
 	switch (state)
 	{

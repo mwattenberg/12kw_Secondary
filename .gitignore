@@ -34,6 +34,7 @@ Release/
 #.project
 .mtbLaunchConfigs/
 makefile.init
+.ninja_log
 
 # Visual Studio Code
 openocd.tcl
