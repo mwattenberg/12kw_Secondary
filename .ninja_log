@@ -506,3 +506,7 @@
 413	860	7808601611202975	build/12kW_Secondary/Custom/mtb-example-ce240786-empty-app.elf	8dacd6d9dd3cbb08
 36	350	7808606796660837	C:/Users/wattenberg/mtw_2025_08/12kW_Secondary/build/Custom/local/System.o	2c81afb46fd096f1
 350	611	7808606799800711	build/12kW_Secondary/Custom/mtb-example-ce240786-empty-app.elf	8dacd6d9dd3cbb08
+35	1034	7809265187091763	C:/Users/wattenberg/mtw_2025_08/12kW_Secondary/build/Custom/local/main.o	830b0dfebc703a1a
+133	1040	7809265188079936	C:/Users/wattenberg/mtw_2025_08/12kW_Secondary/build/Custom/local/System.o	2c81afb46fd096f1
+27	258	7809265472346883	C:/Users/wattenberg/mtw_2025_08/12kW_Secondary/build/Custom/local/PWM.o	e9d8ae6da4326703
+259	469	7809265474670144	build/12kW_Secondary/Custom/mtb-example-ce240786-empty-app.elf	8dacd6d9dd3cbb08

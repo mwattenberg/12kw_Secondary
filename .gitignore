@@ -30,8 +30,8 @@ Release/
 # Eclipse IDE for ModusToolbox files. Comment those files if you want to track them
 .metadata/
 .settings/
-.cproject
-.project
+#.cproject
+#.project
 .mtbLaunchConfigs/
 makefile.init
 

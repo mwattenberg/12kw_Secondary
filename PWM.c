@@ -17,5 +17,14 @@ void PWM_init_Fan()
 void PWM_init_OCThreshold();
 
 
-void PWM_setFanDuty(float duty);
-void PWM_setOverCurrentDuty(float OC_threshold);
+void PWM_setFanDuty(float duty)
+{
+	
+	
+}
+
+
+void PWM_setOverCurrentDuty(float OC_threshold)
+{
+	
+}
