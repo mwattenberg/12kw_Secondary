@@ -12,6 +12,8 @@
 #include "cy_gpio.h"
 #include "System.h"
 #include "PWM.h"
+#include "cy_scb_spi.h"
+#include <string.h>
 
 DataStream_data_buffer_t buffer;
 
@@ -22,10 +24,13 @@ static void inline updatePowerScope()
 {
 	int16_t temp[DataStream_NUMBER_OF_CHANNELS];
 
-	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
+//	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
+	temp[0] = (int16_t)((IOUT));
 	temp[1] = (int16_t)(VOUT_CountsToVolts(VOUT));
 	temp[2] = (int16_t)(TEMP_CountsToCelsius(TEMP1));
 	temp[3] = (int16_t)(TEMP_CountsToCelsius(TEMP2));
+
+	
 	temp[4] = counter;
 	temp[5] = 0;
 	temp[6] = 0;
@@ -64,6 +69,9 @@ void System_UpdateStateMachine()
 	
 	if(Cy_SCB_UART_IsTxComplete(UART_PowerScope_HW))
 		updatePowerScope();
+	
+	if(	Cy_SCB_SPI_IsTxComplete(mSPI_HW))
+		SPI_SendBuffer(NULL);
 	
 	switch (state)
 	{

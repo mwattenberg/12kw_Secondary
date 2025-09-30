@@ -641,7 +641,7 @@
                 <Personality template="spi" version="3.0" instance="-IWE5gVRmc4">
                     <Block location="scb[1]" locked="true">
                         <Aliases>
-                            <Alias value="SPI_MASTER"/>
+                            <Alias value="mSPI"/>
                         </Aliases>
                     </Block>
                     <Parameters>

@@ -106,9 +106,9 @@ extern "C" {
 #define pass_0_sar_0_dir_sampler_9_ENABLED 1U
 #define pass_0_sar_0_seq_0_grp_0_ENABLED 1U
 #define pass_0_sar_0_seq_0_grp_1_ENABLED 1U
-#define SPI_MASTER_ENABLED 1U
-#define SPI_MASTER_HW SCB1
-#define SPI_MASTER_IRQ scb_1_interrupt_IRQn
+#define mSPI_ENABLED 1U
+#define mSPI_HW SCB1
+#define mSPI_IRQ scb_1_interrupt_IRQn
 #define UART_PowerScope_ENABLED 1U
 #define UART_PowerScope_HW SCB2
 #define UART_PowerScope_IRQ scb_2_interrupt_IRQn
@@ -148,27 +148,27 @@ extern const cy_stc_hppass_sar_chan_t TEMP1_config;
 extern const cy_stc_hppass_sar_chan_t TEMP2_config;
 extern const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_0_config;
 extern const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_1_config;
-extern const cy_stc_scb_spi_config_t SPI_MASTER_config;
+extern const cy_stc_scb_spi_config_t mSPI_config;
 
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-extern const cyhal_resource_inst_t SPI_MASTER_obj;
+extern const cyhal_resource_inst_t mSPI_obj;
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
 
 #if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
-extern const cyhal_clock_t SPI_MASTER_clock;
+extern const cyhal_clock_t mSPI_clock;
 #endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
 
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-extern const cyhal_spi_configurator_t SPI_MASTER_hal_config;
+extern const cyhal_spi_configurator_t mSPI_hal_config;
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
 
 #if defined (COMPONENT_MTB_HAL)
-extern const mtb_hal_peri_div_t SPI_MASTER_clock_ref;
-extern const mtb_hal_clock_t SPI_MASTER_hal_clock;
+extern const mtb_hal_peri_div_t mSPI_clock_ref;
+extern const mtb_hal_clock_t mSPI_hal_clock;
 #endif /* defined (COMPONENT_MTB_HAL) */
 
 #if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI)
-extern const mtb_hal_spi_configurator_t SPI_MASTER_hal_config;
+extern const mtb_hal_spi_configurator_t mSPI_hal_config;
 #endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI) */
 
 extern const cy_stc_scb_uart_config_t UART_PowerScope_config;

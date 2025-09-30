@@ -404,7 +404,7 @@ const cy_stc_hppass_sar_grp_t pass_0_sar_0_seq_0_grp_1_config =
     .priority = false,
     .continuous = false,
 };
-const cy_stc_scb_spi_config_t SPI_MASTER_config =
+const cy_stc_scb_spi_config_t mSPI_config =
 {
     .spiMode = CY_SCB_SPI_MASTER,
     .subMode = CY_SCB_SPI_MOTOROLA,
@@ -435,7 +435,7 @@ const cy_stc_scb_spi_config_t SPI_MASTER_config =
 };
 
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-const cyhal_resource_inst_t SPI_MASTER_obj =
+const cyhal_resource_inst_t mSPI_obj =
 {
     .type = CYHAL_RSC_SCB,
     .block_num = 1U,
@@ -444,7 +444,7 @@ const cyhal_resource_inst_t SPI_MASTER_obj =
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
 
 #if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
-const cyhal_clock_t SPI_MASTER_clock =
+const cyhal_clock_t mSPI_clock =
 {
     .block = CYHAL_CLOCK_BLOCK_PERIPHERAL4_8BIT,
     .channel = 0,
@@ -456,35 +456,35 @@ const cyhal_clock_t SPI_MASTER_clock =
 #endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
 
 #if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
-const cyhal_spi_configurator_t SPI_MASTER_hal_config =
+const cyhal_spi_configurator_t mSPI_hal_config =
 {
-    .resource = &SPI_MASTER_obj,
-    .config = &SPI_MASTER_config,
-    .clock = &SPI_MASTER_clock,
+    .resource = &mSPI_obj,
+    .config = &mSPI_config,
+    .clock = &mSPI_clock,
     .gpios = {.sclk = P2_1, .ssel = {P2_0, NC, NC, NC}, .mosi = P2_2, .miso = P2_3},
 };
 #endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
 
 #if defined (COMPONENT_MTB_HAL)
-const mtb_hal_peri_div_t SPI_MASTER_clock_ref =
+const mtb_hal_peri_div_t mSPI_clock_ref =
 {
     .clk_dst = (en_clk_dst_t)PCLK_SCB1_CLOCK_SCB_EN,
     .div_type = CY_SYSCLK_DIV_8_BIT,
     .div_num = 0,
 };
-const mtb_hal_clock_t SPI_MASTER_hal_clock =
+const mtb_hal_clock_t mSPI_hal_clock =
 {
-    .clock_ref = &SPI_MASTER_clock_ref,
+    .clock_ref = &mSPI_clock_ref,
     .interface = &mtb_hal_clock_peri_interface,
 };
 #endif /* defined (COMPONENT_MTB_HAL) */
 
 #if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI)
-const mtb_hal_spi_configurator_t SPI_MASTER_hal_config =
+const mtb_hal_spi_configurator_t mSPI_hal_config =
 {
-    .base = SPI_MASTER_HW,
-    .clock = &SPI_MASTER_hal_clock,
-    .config = &SPI_MASTER_config,
+    .base = mSPI_HW,
+    .clock = &mSPI_hal_clock,
+    .config = &mSPI_config,
 };
 #endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI) */
 
@@ -1051,7 +1051,7 @@ void init_cycfg_peripherals(void)
 void reserve_cycfg_peripherals(void)
 {
 #if defined (CY_USING_HAL)
-    cyhal_hwmgr_reserve(&SPI_MASTER_obj);
+    cyhal_hwmgr_reserve(&mSPI_obj);
     cyhal_hwmgr_reserve(&UART_PowerScope_obj);
     cyhal_hwmgr_reserve(&PWM_OC_THR_obj);
     cyhal_hwmgr_reserve(&PWM_FAN_obj);
