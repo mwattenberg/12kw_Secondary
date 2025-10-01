@@ -14,11 +14,33 @@
 
 
 volatile ADC_config_t ADC_config;
+const float a1 = -1.36f;
+const float a2 =  0.686f;
+
+const float b0 = 2.408f;
+const float b1 = -1.364f;
+const float b2 = -0.7222f;
+
+float x2, x1, y2, y1;
+
+
+static inline float calculateBiquadFilter(float x)
+{
+	float y;
+    y = b0 * x + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;
+    x2 = x1;
+    x1 = x;
+    y2 = y1;
+    y1 = y;
+    return (y - x);
+}
 
 void ISR_VoutIoutEOC()
 {
 	IOUT =  Cy_HPPASS_SAR_Result_ChannelRead(0);
 	VOUT = Cy_HPPASS_SAR_Result_ChannelRead(2);
+	
+	ADC_config.filter = calculateBiquadFilter(IOUT);
 	
     uint32_t interrupts = Cy_TCPWM_GetInterruptStatusMasked(TIMER_ADC_VOUT_IOUT_HW, TIMER_ADC_VOUT_IOUT_NUM);
     Cy_TCPWM_ClearInterrupt(TIMER_ADC_VOUT_IOUT_HW, TIMER_ADC_VOUT_IOUT_NUM, interrupts);
