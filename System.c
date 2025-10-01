@@ -123,14 +123,20 @@ void System_UpdateStateMachine()
 				
 			myCounter++;
 			
+
+			
 			break;
 		case STATE_CHECK_VOUT:
+			state = STATE_ENABLE_LINEAR_FET;
 			break;
 		case STATE_ENABLE_LINEAR_FET:
+			state = STATE_ENABLE_ORING;
 			break;
 		case STATE_ENABLE_ORING:
 		Cy_GPIO_Clr(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_PIN);
 		Cy_GPIO_Set(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_PIN);
+		
+			state = STATE_RUN;
 			break;
 		case STATE_RUN:
 		Cy_GPIO_Clr(PIN_LED_FAULT_PORT, PIN_LED_FAULT_PIN);
