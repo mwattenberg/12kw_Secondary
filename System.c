@@ -48,7 +48,7 @@ static void inline updatePowerScope()
 
 void doFanControl()
 {
-	
+//	my fan control...
 }
 
 
