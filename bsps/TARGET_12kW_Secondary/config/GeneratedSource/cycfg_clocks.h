@@ -40,22 +40,22 @@
 extern "C" {
 #endif /* defined(__cplusplus) */
 
-#define peri_0_group_4_div_16_5_0_ENABLED 1U
+#define UART_CLK_ENABLED 1U
 
 #if defined (CY_USING_HAL) || defined (CY_USING_HAL_LITE)
-#define peri_0_group_4_div_16_5_0_HW CYHAL_CLOCK_BLOCK_PERIPHERAL4_16_5BIT
+#define UART_CLK_HW CYHAL_CLOCK_BLOCK_PERIPHERAL4_16_5BIT
 #endif /* defined (CY_USING_HAL) || defined (CY_USING_HAL_LITE) */
 
 #if !defined (CY_USING_HAL) && !defined (CY_USING_HAL_LITE)
-#define peri_0_group_4_div_16_5_0_HW CY_SYSCLK_DIV_16_5_BIT
+#define UART_CLK_HW CY_SYSCLK_DIV_16_5_BIT
 #endif /* !defined (CY_USING_HAL) && !defined (CY_USING_HAL_LITE) */
 
-#define peri_0_group_4_div_16_5_0_NUM 0U
-#define PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM ((4U << PERI_PCLK_GR_NUM_Pos) | (0U << PERI_PCLK_INST_NUM_Pos))
+#define UART_CLK_NUM 0U
+#define UART_CLK_GRP_NUM ((4U << PERI_PCLK_GR_NUM_Pos) | (0U << PERI_PCLK_INST_NUM_Pos))
 
-#if !defined (peri_0_group_4_div_16_5_0_GRP_NUM)
-#define peri_0_group_4_div_16_5_0_GRP_NUM PERI_0_GROUP_4_DIV_16_5_0_GRP_NUM
-#endif /* !defined (peri_0_group_4_div_16_5_0_GRP_NUM) */
+#if !defined (UART_CLK_GRP_NUM)
+#define UART_CLK_GRP_NUM UART_CLK_GRP_NUM
+#endif /* !defined (UART_CLK_GRP_NUM) */
 
 #define SPI_CLK_ENABLED 1U
 
@@ -126,7 +126,7 @@ extern "C" {
 #endif /* !defined (PWM_CLK_SLOW_GRP_NUM) */
 
 #if defined (CY_USING_HAL)
-extern const cyhal_resource_inst_t peri_0_group_4_div_16_5_0_obj;
+extern const cyhal_resource_inst_t UART_CLK_obj;
 extern const cyhal_resource_inst_t SPI_CLK_obj;
 extern const cyhal_resource_inst_t peri_0_group_4_div_8_1_obj;
 extern const cyhal_resource_inst_t PWM_CLK_obj;

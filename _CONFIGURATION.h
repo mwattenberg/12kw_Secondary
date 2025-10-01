@@ -9,7 +9,7 @@
 #define CONFIGURATION_H_
 
 
-#define VOUT_CountsToVoltsGain 			(0.01853f)
+#define VOUT_CountsToVoltsGain 			(0.02038f)
 #define VOUT_CountsToVolts(counts) 		((counts) * VOUT_CountsToVoltsGain)
 #define VOUT_VoltsToCountsGain 			(1/VOUT_CountsToVoltsGain)
 #define VOUT_VoltsToCounts(volts)		((volts) * VOUT_VoltsToCountsGain)

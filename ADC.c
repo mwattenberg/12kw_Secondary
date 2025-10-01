@@ -28,9 +28,9 @@ void ISR_VoutIoutEOC()
 
 void ISR_TempEOC()
 {
-	TEMP1 = Cy_HPPASS_SAR_Result_ChannelRead(5) / 4; //divide by 4 because of 4x averaging  
-	TEMP2 = Cy_HPPASS_SAR_Result_ChannelRead(9) / 4;
-	
+	TEMP1 = Cy_HPPASS_SAR_Result_ChannelRead(5); 
+	TEMP2 = Cy_HPPASS_SAR_Result_ChannelRead(9);
+		
     uint32_t interrupts = Cy_TCPWM_GetInterruptStatusMasked(TIMER_ADC_TEMP_HW, TIMER_ADC_TEMP_NUM);
     Cy_TCPWM_ClearInterrupt(TIMER_ADC_TEMP_HW, TIMER_ADC_TEMP_NUM, interrupts);
 	NVIC_ClearPendingIRQ(TIMER_ADC_TEMP_IRQ);

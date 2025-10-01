@@ -129,7 +129,7 @@ int main(void)
     cy_rslt_t result;
 
     /* Initialize the device and board peripherals */
-    result = cybsp_init();
+   result = cybsp_init();
 
     /* Board init failed. Stop program execution */
     if (result != CY_RSLT_SUCCESS)

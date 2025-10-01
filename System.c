@@ -21,16 +21,15 @@ DataStream_data_buffer_t buffer;
 int8_t counter = 0;
 SystemState_t state;
 
+int16_t temp[DataStream_NUMBER_OF_CHANNELS];
+
 static void inline updatePowerScope()
 {
-	int16_t temp[DataStream_NUMBER_OF_CHANNELS];
-
 //	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
 	temp[0] = (int16_t)((IOUT));
 	temp[1] = (int16_t)(10*VOUT_CountsToVolts(VOUT));
-	temp[2] = (int16_t)(10*TEMP_CountsToCelsius(TEMP1));
+	temp[2] = (int16_t)(10*TEMP_CountsToCelsius(TEMP1));		
 	temp[3] = (int16_t)(10*TEMP_CountsToCelsius(TEMP2));
-
 	
 	temp[4] = counter;
 	temp[5] = 0;

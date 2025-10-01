@@ -6,7 +6,7 @@
                 <Personality template="altsystick" version="3.0" instance="oLo63_lrdaY">
                     <Block location="cpuss[0].systick_s[0]" locked="true"/>
                     <Parameters>
-                        <Param id="interval" value="100"/>
+                        <Param id="interval" value="50"/>
                         <Param id="sourceClock" value="imo"/>
                     </Parameters>
                 </Personality>
@@ -487,7 +487,7 @@
                         </Aliases>
                     </Block>
                     <Parameters>
-                        <Param id="avg" value="CY_HPPASS_SAR_AVG_4"/>
+                        <Param id="avg" value="CY_HPPASS_SAR_AVG_DISABLED"/>
                         <Param id="fifoLoc" value="CY_HPPASS_FIFO_DISABLED"/>
                         <Param id="limitLoc" value="CY_HPPASS_SAR_LIMIT_DISABLED"/>
                         <Param id="sign" value="false"/>
@@ -500,7 +500,7 @@
                         </Aliases>
                     </Block>
                     <Parameters>
-                        <Param id="avg" value="CY_HPPASS_SAR_AVG_4"/>
+                        <Param id="avg" value="CY_HPPASS_SAR_AVG_DISABLED"/>
                         <Param id="fifoLoc" value="CY_HPPASS_FIFO_DISABLED"/>
                         <Param id="limitLoc" value="CY_HPPASS_SAR_LIMIT_DISABLED"/>
                         <Param id="sign" value="false"/>
@@ -607,10 +607,14 @@
                     </Parameters>
                 </Personality>
                 <Personality template="pclk_v2" version="1.0" instance="PvXPwHh_qhg">
-                    <Block location="peri[0].group[4].div_16_5[0]" locked="true"/>
+                    <Block location="peri[0].group[4].div_16_5[0]" locked="true">
+                        <Aliases>
+                            <Alias value="UART_CLK"/>
+                        </Aliases>
+                    </Block>
                     <Parameters>
-                        <Param id="fracDivider" value="16"/>
-                        <Param id="intDivider" value="22"/>
+                        <Param id="fracDivider" value="8"/>
+                        <Param id="intDivider" value="11"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -669,7 +673,7 @@
                         <Param id="IntrTxTrigger" value="false"/>
                         <Param id="IntrTxUnderflow" value="false"/>
                         <Param id="ModeUser" value="CY_SCB_SPI_MASTER"/>
-                        <Param id="OvsFactor" value="16"/>
+                        <Param id="OvsFactor" value="9"/>
                         <Param id="Parity" value="CY_SCB_SPI_PARITY_NONE"/>
                         <Param id="RxDataWidth" value="8"/>
                         <Param id="RxTriggerLevel" value="63"/>
@@ -694,7 +698,7 @@
                     </Block>
                     <Parameters>
                         <Param id="ApiMode" value="HIGH_LEVEL"/>
-                        <Param id="BaudRate" value="500000"/>
+                        <Param id="BaudRate" value="2000000"/>
                         <Param id="BitsOrder" value="CY_SCB_UART_LSB_FIRST"/>
                         <Param id="BreakLevel" value="0"/>
                         <Param id="BreakSignalBits" value="11"/>
@@ -784,7 +788,7 @@
                         <Param id="ClkHfCsv" value="false"/>
                         <Param id="accuracyCsv" value="99"/>
                         <Param id="actionCsv" value="FAULT"/>
-                        <Param id="divider" value="2"/>
+                        <Param id="divider" value="1"/>
                         <Param id="sourceClockCsv" value="IMO"/>
                         <Param id="sourceClockNumber" value="1"/>
                     </Parameters>

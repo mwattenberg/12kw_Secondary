@@ -358,7 +358,7 @@ const cy_stc_hppass_sar_chan_t TEMP1_config =
 {
     .diff = false,
     .sign = false,
-    .avg = CY_HPPASS_SAR_AVG_4,
+    .avg = CY_HPPASS_SAR_AVG_DISABLED,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
     .result = true,
     .fifo = CY_HPPASS_FIFO_DISABLED,
@@ -367,7 +367,7 @@ const cy_stc_hppass_sar_chan_t TEMP2_config =
 {
     .diff = false,
     .sign = false,
-    .avg = CY_HPPASS_SAR_AVG_4,
+    .avg = CY_HPPASS_SAR_AVG_DISABLED,
     .limit = CY_HPPASS_SAR_LIMIT_DISABLED,
     .result = true,
     .fifo = CY_HPPASS_FIFO_DISABLED,
@@ -411,7 +411,7 @@ const cy_stc_scb_spi_config_t mSPI_config =
     .sclkMode = CY_SCB_SPI_CPHA0_CPOL0,
     .parity = CY_SCB_SPI_PARITY_NONE,
     .dropOnParityError = false,
-    .oversample = 16,
+    .oversample = 9,
     .rxDataWidth = 8UL,
     .txDataWidth = 8UL,
     .enableMsbFirst = true,
@@ -555,9 +555,9 @@ const cyhal_uart_configurator_t UART_PowerScope_hal_config =
 #if defined (COMPONENT_MTB_HAL)
 const mtb_hal_peri_div_t UART_PowerScope_clock_ref =
 {
-    .clk_dst = (en_clk_dst_t)peri_0_group_4_div_16_5_0_GRP_NUM,
-    .div_type = peri_0_group_4_div_16_5_0_HW,
-    .div_num = peri_0_group_4_div_16_5_0_NUM,
+    .clk_dst = (en_clk_dst_t)UART_CLK_GRP_NUM,
+    .div_type = UART_CLK_HW,
+    .div_num = UART_CLK_NUM,
 };
 const mtb_hal_clock_t UART_PowerScope_hal_clock =
 {

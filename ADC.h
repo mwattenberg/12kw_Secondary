@@ -18,8 +18,7 @@
 
 typedef volatile struct ADC_config_t
 {
-	uint16_t results[4];
-
+	int32_t results[4];
 
 } ADC_config_t;
 
