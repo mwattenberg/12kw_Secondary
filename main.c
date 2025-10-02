@@ -100,7 +100,8 @@ void init()
 	Cy_GPIO_Clr(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_NUM);
 	
 	ADC_init();
-	SPI_init();
+	SPI_Master_init();
+	SPI_Slave_init();
 	System_init();
 	PWM_initFan();
 	PWM_init_OCThreshold();

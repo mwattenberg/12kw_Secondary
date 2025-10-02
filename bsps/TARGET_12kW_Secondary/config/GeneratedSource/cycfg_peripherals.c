@@ -428,7 +428,7 @@ const cy_stc_scb_spi_config_t mSPI_config =
     .ssInterFrameDelay = false,
     .enableWakeFromSleep = false,
     .rxFifoTriggerLevel = 63UL,
-    .rxFifoIntEnableMask = 0UL,
+    .rxFifoIntEnableMask = 1UL,
     .txFifoTriggerLevel = 63UL,
     .txFifoIntEnableMask = 0UL,
     .masterSlaveIntEnableMask = 0UL,
@@ -576,6 +576,90 @@ const mtb_hal_uart_configurator_t UART_PowerScope_hal_config =
 #endif /* defined (COMPONENT_MW_ASYNC_TRANSFER) */
 };
 #endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_UART) */
+
+const cy_stc_scb_spi_config_t sSPI_config =
+{
+    .spiMode = CY_SCB_SPI_SLAVE,
+    .subMode = CY_SCB_SPI_MOTOROLA,
+    .sclkMode = CY_SCB_SPI_CPHA0_CPOL0,
+    .parity = CY_SCB_SPI_PARITY_NONE,
+    .dropOnParityError = false,
+    .oversample = 0UL,
+    .rxDataWidth = 8UL,
+    .txDataWidth = 8UL,
+    .enableMsbFirst = true,
+    .enableInputFilter = false,
+    .enableFreeRunSclk = false,
+    .enableMisoLateSample = false,
+    .enableTransferSeperation = false,
+    .ssPolarity = ((CY_SCB_SPI_ACTIVE_LOW << CY_SCB_SPI_SLAVE_SELECT0) | \
+                                         (CY_SCB_SPI_ACTIVE_LOW << CY_SCB_SPI_SLAVE_SELECT1) | \
+                                         (CY_SCB_SPI_ACTIVE_LOW << CY_SCB_SPI_SLAVE_SELECT2) | \
+                                         (CY_SCB_SPI_ACTIVE_LOW << CY_SCB_SPI_SLAVE_SELECT3)),
+    .ssSetupDelay = false,
+    .ssHoldDelay = false,
+    .ssInterFrameDelay = false,
+    .enableWakeFromSleep = false,
+    .rxFifoTriggerLevel = 63UL,
+    .rxFifoIntEnableMask = 1UL,
+    .txFifoTriggerLevel = 63UL,
+    .txFifoIntEnableMask = 0UL,
+    .masterSlaveIntEnableMask = 0UL,
+};
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_resource_inst_t sSPI_obj =
+{
+    .type = CYHAL_RSC_SCB,
+    .block_num = 3U,
+    .channel_num = 0U,
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+const cyhal_clock_t sSPI_clock =
+{
+    .block = CYHAL_CLOCK_BLOCK_PERIPHERAL4_8BIT,
+    .channel = 0,
+#if defined (CY_USING_HAL)
+    .reserved = false,
+    .funcs = NULL,
+#endif /* defined (CY_USING_HAL) */
+};
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+const cyhal_spi_configurator_t sSPI_hal_config =
+{
+    .resource = &sSPI_obj,
+    .config = &sSPI_config,
+    .clock = &sSPI_clock,
+    .gpios = {.sclk = P6_2, .ssel = {P6_3, NC, NC, NC}, .mosi = P6_0, .miso = P6_1},
+};
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+const mtb_hal_peri_div_t sSPI_clock_ref =
+{
+    .clk_dst = (en_clk_dst_t)PCLK_SCB3_CLOCK_SCB_EN,
+    .div_type = CY_SYSCLK_DIV_8_BIT,
+    .div_num = 0,
+};
+const mtb_hal_clock_t sSPI_hal_clock =
+{
+    .clock_ref = &sSPI_clock_ref,
+    .interface = &mtb_hal_clock_peri_interface,
+};
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI)
+const mtb_hal_spi_configurator_t sSPI_hal_config =
+{
+    .base = sSPI_HW,
+    .clock = &sSPI_hal_clock,
+    .config = &sSPI_config,
+};
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI) */
 
 const cy_stc_tcpwm_pwm_config_t PWM_OC_THR_config =
 {
@@ -1027,6 +1111,7 @@ void init_cycfg_peripherals(void)
     Cy_HPPASS_SAR_CrossTalkAdjust((uint8_t)1U << 1U);
     Cy_SysClk_PeriPclkAssignDivider(PCLK_SCB1_CLOCK_SCB_EN, CY_SYSCLK_DIV_8_BIT, 0U);
     Cy_SysClk_PeriPclkAssignDivider(PCLK_SCB2_CLOCK_SCB_EN, CY_SYSCLK_DIV_16_5_BIT, 0U);
+    Cy_SysClk_PeriPclkAssignDivider(PCLK_SCB3_CLOCK_SCB_EN, CY_SYSCLK_DIV_8_BIT, 0U);
 #if defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)
     Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM0_PERI_NR, CY_MMIO_TCPWM0_GROUP_NR, CY_MMIO_TCPWM0_SLAVE_NR, CY_MMIO_TCPWM0_CLK_HF_NR);
 #endif /* defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE) */
@@ -1053,6 +1138,7 @@ void reserve_cycfg_peripherals(void)
 #if defined (CY_USING_HAL)
     cyhal_hwmgr_reserve(&mSPI_obj);
     cyhal_hwmgr_reserve(&UART_PowerScope_obj);
+    cyhal_hwmgr_reserve(&sSPI_obj);
     cyhal_hwmgr_reserve(&PWM_OC_THR_obj);
     cyhal_hwmgr_reserve(&PWM_FAN_obj);
     cyhal_hwmgr_reserve(&TIMER_ADC_VOUT_IOUT_obj);

@@ -56,14 +56,30 @@ void doFanControl()
 
 void sendSPIData()
 {
-	masterData.Vout = VOUT;
-	masterData.Iout = IOUT;
-	masterData.Iout_Feedforward = 42;	//here we have to implement bandpass filter for feedforward
-	masterData.Temp1 = TEMP1;
-	masterData.Temp2 = TEMP2;
-	masterData.status = 10;
-	masterData.checksum = SPI_calculateChecksum(&masterData);
-	SPI_DoTheThing();
+	slaveData.out.Voltage = 42;
+	slaveData.out.Current = 69;
+	slaveData.out.Feedforward = 420;
+	slaveData.out.Temp1 = 666;
+	slaveData.out.Temp2 = 999;
+	slaveData.out.status = 12;
+	slaveData.out.checksum = 0;
+	slaveData.out.checksum = SPI_calculateChecksum(&slaveData.out);
+	
+	//Normally we don't have to call this function but when we are testing on the same MCU we need
+	//different send for primary and secondary
+	Cy_SCB_SPI_WriteArray	(sSPI_HW, &slaveData.out, sizeof(data_t));
+	
+	masterData.out.Voltage = VOUT;
+	masterData.out.Current = IOUT;
+	masterData.out.Feedforward = 42;
+	masterData.out.Temp1 = TEMP1;
+	masterData.out.Temp2 = TEMP2;
+	masterData.out.status = 10;
+	masterData.out.checksum = 0;
+	masterData.out.checksum = SPI_calculateChecksum(&masterData.out);
+	
+	//Normally calling send should be enough because we know what we are slave or master and which HW to use
+	SPI_send(&masterData.out);
 	
 }
 

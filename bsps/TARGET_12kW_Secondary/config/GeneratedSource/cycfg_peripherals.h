@@ -112,6 +112,9 @@ extern "C" {
 #define UART_PowerScope_ENABLED 1U
 #define UART_PowerScope_HW SCB2
 #define UART_PowerScope_IRQ scb_2_interrupt_IRQn
+#define sSPI_ENABLED 1U
+#define sSPI_HW SCB3
+#define sSPI_IRQ scb_3_interrupt_IRQn
 #define PWM_OC_THR_ENABLED 1U
 #define PWM_OC_THR_HW TCPWM0
 #define PWM_OC_THR_NUM 0UL
@@ -193,6 +196,29 @@ extern const mtb_hal_clock_t UART_PowerScope_hal_clock;
 #if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_UART)
 extern const mtb_hal_uart_configurator_t UART_PowerScope_hal_config;
 #endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_UART) */
+
+extern const cy_stc_scb_spi_config_t sSPI_config;
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_resource_inst_t sSPI_obj;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)
+extern const cyhal_clock_t sSPI_clock;
+#endif /* defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL) */
+
+#if defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)
+extern const cyhal_spi_configurator_t sSPI_hal_config;
+#endif /* defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE) */
+
+#if defined (COMPONENT_MTB_HAL)
+extern const mtb_hal_peri_div_t sSPI_clock_ref;
+extern const mtb_hal_clock_t sSPI_hal_clock;
+#endif /* defined (COMPONENT_MTB_HAL) */
+
+#if defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI)
+extern const mtb_hal_spi_configurator_t sSPI_hal_config;
+#endif /* defined (COMPONENT_MTB_HAL) && (MTB_HAL_DRIVER_AVAILABLE_SPI) */
 
 extern const cy_stc_tcpwm_pwm_config_t PWM_OC_THR_config;
 

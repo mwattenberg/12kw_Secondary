@@ -247,7 +247,7 @@ const cyhal_resource_inst_t PIN_DIS_OUTPUT_obj =
 const cy_stc_gpio_pin_config_t PIN_DAC_OC_THR_config =
 {
     .outVal = 1,
-    .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
+    .driveMode = CY_GPIO_DM_HIGHZ,
     .hsiom = PIN_DAC_OC_THR_HSIOM,
     .intEdge = CY_GPIO_INTR_DISABLE,
     .intMask = 0UL,
@@ -268,6 +268,33 @@ const cyhal_resource_inst_t PIN_DAC_OC_THR_obj =
     .type = CYHAL_RSC_GPIO,
     .block_num = PIN_DAC_OC_THR_PORT_NUM,
     .channel_num = PIN_DAC_OC_THR_PIN,
+};
+#endif /* defined (CY_USING_HAL) || (CY_USING_HAL_LITE) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_1_config =
+{
+    .outVal = 1,
+    .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
+    .hsiom = ioss_0_port_6_pin_1_HSIOM,
+    .intEdge = CY_GPIO_INTR_DISABLE,
+    .intMask = 0UL,
+    .vtrip = CY_GPIO_VTRIP_CMOS,
+    .slewRate = CY_GPIO_SLEW_FAST,
+    .driveSel = CY_GPIO_DRIVE_1_2,
+    .vregEn = 0UL,
+    .ibufMode = 0UL,
+    .vtripSel = 0UL,
+    .vrefSel = 0UL,
+    .vohSel = 0UL,
+    .nonSec = 0,
+};
+
+#if defined (CY_USING_HAL) || (CY_USING_HAL_LITE)
+const cyhal_resource_inst_t ioss_0_port_6_pin_1_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_6_pin_1_PORT_NUM,
+    .channel_num = ioss_0_port_6_pin_1_PIN,
 };
 #endif /* defined (CY_USING_HAL) || (CY_USING_HAL_LITE) */
 
@@ -490,7 +517,7 @@ const cyhal_resource_inst_t PIN_DISABLE_FAN_obj =
 const cy_stc_gpio_pin_config_t PIN_LED_RUN_config =
 {
     .outVal = 0,
-    .driveMode = CY_GPIO_DM_STRONG,
+    .driveMode = CY_GPIO_DM_HIGHZ,
     .hsiom = PIN_LED_RUN_HSIOM,
     .intEdge = CY_GPIO_INTR_DISABLE,
     .intMask = 0UL,
@@ -514,6 +541,60 @@ const cyhal_resource_inst_t PIN_LED_RUN_obj =
 };
 #endif /* defined (CY_USING_HAL) || (CY_USING_HAL_LITE) */
 
+const cy_stc_gpio_pin_config_t ioss_0_port_9_pin_2_config =
+{
+    .outVal = 1,
+    .driveMode = CY_GPIO_DM_HIGHZ,
+    .hsiom = ioss_0_port_9_pin_2_HSIOM,
+    .intEdge = CY_GPIO_INTR_DISABLE,
+    .intMask = 0UL,
+    .vtrip = CY_GPIO_VTRIP_CMOS,
+    .slewRate = CY_GPIO_SLEW_FAST,
+    .driveSel = CY_GPIO_DRIVE_1_2,
+    .vregEn = 0UL,
+    .ibufMode = 0UL,
+    .vtripSel = 0UL,
+    .vrefSel = 0UL,
+    .vohSel = 0UL,
+    .nonSec = 0,
+};
+
+#if defined (CY_USING_HAL) || (CY_USING_HAL_LITE)
+const cyhal_resource_inst_t ioss_0_port_9_pin_2_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_9_pin_2_PORT_NUM,
+    .channel_num = ioss_0_port_9_pin_2_PIN,
+};
+#endif /* defined (CY_USING_HAL) || (CY_USING_HAL_LITE) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_9_pin_3_config =
+{
+    .outVal = 1,
+    .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
+    .hsiom = ioss_0_port_9_pin_3_HSIOM,
+    .intEdge = CY_GPIO_INTR_DISABLE,
+    .intMask = 0UL,
+    .vtrip = CY_GPIO_VTRIP_CMOS,
+    .slewRate = CY_GPIO_SLEW_FAST,
+    .driveSel = CY_GPIO_DRIVE_1_2,
+    .vregEn = 0UL,
+    .ibufMode = 0UL,
+    .vtripSel = 0UL,
+    .vrefSel = 0UL,
+    .vohSel = 0UL,
+    .nonSec = 0,
+};
+
+#if defined (CY_USING_HAL) || (CY_USING_HAL_LITE)
+const cyhal_resource_inst_t ioss_0_port_9_pin_3_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_9_pin_3_PORT_NUM,
+    .channel_num = ioss_0_port_9_pin_3_PIN,
+};
+#endif /* defined (CY_USING_HAL) || (CY_USING_HAL_LITE) */
+
 void init_cycfg_pins(void)
 {
     Cy_GPIO_Pin_Init(SWCLK_PORT, SWCLK_PIN, &SWCLK_config);
@@ -525,6 +606,7 @@ void init_cycfg_pins(void)
     Cy_GPIO_Pin_Init(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_PIN, &PIN_EN_OUTPUT_config);
     Cy_GPIO_Pin_Init(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_PIN, &PIN_DIS_OUTPUT_config);
     Cy_GPIO_Pin_Init(PIN_DAC_OC_THR_PORT, PIN_DAC_OC_THR_PIN, &PIN_DAC_OC_THR_config);
+    Cy_GPIO_Pin_Init(ioss_0_port_6_pin_1_PORT, ioss_0_port_6_pin_1_PIN, &ioss_0_port_6_pin_1_config);
     Cy_GPIO_Pin_Init(OCD_PORT, OCD_PIN, &OCD_config);
     Cy_GPIO_Pin_Init(PIN_FLT_CS_PORT, PIN_FLT_CS_PIN, &PIN_FLT_CS_config);
     Cy_GPIO_Pin_Init(PIN_SCL_PORT, PIN_SCL_PIN, &PIN_SCL_config);
@@ -534,6 +616,8 @@ void init_cycfg_pins(void)
     Cy_GPIO_Pin_Init(PIN_PWM_FAN_PORT, PIN_PWM_FAN_PIN, &PIN_PWM_FAN_config);
     Cy_GPIO_Pin_Init(PIN_DISABLE_FAN_PORT, PIN_DISABLE_FAN_PIN, &PIN_DISABLE_FAN_config);
     Cy_GPIO_Pin_Init(PIN_LED_RUN_PORT, PIN_LED_RUN_PIN, &PIN_LED_RUN_config);
+    Cy_GPIO_Pin_Init(ioss_0_port_9_pin_2_PORT, ioss_0_port_9_pin_2_PIN, &ioss_0_port_9_pin_2_config);
+    Cy_GPIO_Pin_Init(ioss_0_port_9_pin_3_PORT, ioss_0_port_9_pin_3_PIN, &ioss_0_port_9_pin_3_config);
 }
 void reserve_cycfg_pins(void)
 {
@@ -547,6 +631,7 @@ void reserve_cycfg_pins(void)
     cyhal_hwmgr_reserve(&PIN_EN_OUTPUT_obj);
     cyhal_hwmgr_reserve(&PIN_DIS_OUTPUT_obj);
     cyhal_hwmgr_reserve(&PIN_DAC_OC_THR_obj);
+    cyhal_hwmgr_reserve(&ioss_0_port_6_pin_1_obj);
     cyhal_hwmgr_reserve(&OCD_obj);
     cyhal_hwmgr_reserve(&PIN_FLT_CS_obj);
     cyhal_hwmgr_reserve(&PIN_SCL_obj);
@@ -556,5 +641,7 @@ void reserve_cycfg_pins(void)
     cyhal_hwmgr_reserve(&PIN_PWM_FAN_obj);
     cyhal_hwmgr_reserve(&PIN_DISABLE_FAN_obj);
     cyhal_hwmgr_reserve(&PIN_LED_RUN_obj);
+    cyhal_hwmgr_reserve(&ioss_0_port_9_pin_2_obj);
+    cyhal_hwmgr_reserve(&ioss_0_port_9_pin_3_obj);
 #endif /* defined (CY_USING_HAL) */
 }

@@ -17,34 +17,32 @@ typedef enum Status {
     OverVoltage = 4
 } Status;
 
-//The secondary side is master
-typedef struct __attribute__((packed)) spi_MasterData_t {
-    int16_t Vout;
-    int16_t Iout;
-    int16_t Iout_Feedforward;
+typedef struct data_t
+{
+	int16_t Voltage;
+    int16_t Current;
+    int16_t Feedforward;
     int16_t Temp1;
     int16_t Temp2;
     int8_t status;
     uint8_t checksum;
-} SPI_masterData_t;
+} data_t;
+
 
 //the primary side is slave
-typedef struct __attribute__((packed)) spi_SlaveData_t {
-    int16_t Vin;
-    int16_t Iin;
-    int16_t Iout_Feedforward;
-    int16_t Temp1;
-    int16_t Temp2;
-    int8_t status;
-    uint8_t checksum;
-} SPI_slaveData_t;
+typedef struct SPI_data_t 
+{
+	data_t out;
+    data_t in;
+} SPI_data_t;
 
-extern SPI_masterData_t masterData;
-extern SPI_slaveData_t slaveData;
+extern SPI_data_t masterData;
+extern SPI_data_t slaveData;
 
 
-void SPI_init();
-void SPI_DoTheThing();
-uint8_t SPI_calculateChecksum(SPI_masterData_t* data);
+void SPI_Master_init();
+void SPI_Slave_init();
+void SPI_send(data_t* data);
+uint8_t SPI_calculateChecksum(data_t* data);
 
 #endif /* SPI_H_ */
