@@ -105,7 +105,7 @@ void init()
 	PWM_initFan();
 	PWM_init_OCThreshold();
 	
-	PWM_fanSetDuty(0.25f);
+	//PWM_fanSetDuty(0.25f);
 	
 }
 

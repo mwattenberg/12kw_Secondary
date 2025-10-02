@@ -25,8 +25,8 @@ SystemState_t state;
 
 
 // --- Control Setpoints (Define these globally) ---
-#define TEMP_OFF_THRESHOLD_C      30.0f
-#define TEMP_MAX_RAMP_C           60.0f
+#define TEMP_OFF_THRESHOLD_C      60.0f
+#define TEMP_MAX_RAMP_C           90.0f
 #define MAX_DUTY_RATIO            0.5f  // For 50% duty cycle
 
 // --- Shared Variable (Declare only ONCE at file scope for debugging) ---
@@ -64,8 +64,8 @@ void doFanControl(void)
     float temp_sensor2;
     
     // 1. Read and convert both temperatures
-    temp_sensor1 = TEMP_CountsToCelsius(TEMP1);
-    temp_sensor2 = TEMP_CountsToCelsius(TEMP2);
+    temp_sensor1 = (float) TEMP_CountsToCelsius(TEMP1);
+    temp_sensor2 = (float) TEMP_CountsToCelsius(TEMP2);
 
     // 2. Set current_temperature to the MAXIMUM of the two readings
     current_temperature = fmaxf(temp_sensor1, temp_sensor2);
