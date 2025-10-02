@@ -50,7 +50,7 @@ static void inline updatePowerScope()
 
 void doFanControl()
 {
-	
+	PWM_fanSetDuty(0.1f);
 }
 
 
