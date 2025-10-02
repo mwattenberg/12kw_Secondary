@@ -152,7 +152,7 @@ ehthumbs_vista.db
 
 /.cache
 /.project
-bsp.mk
+#bsp.mk
 .project
 cycfg_clocks.c
 
