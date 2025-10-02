@@ -154,4 +154,5 @@ ehthumbs_vista.db
 /.project
 bsp.mk
 .project
+cycfg_clocks.c
 
