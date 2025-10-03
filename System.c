@@ -23,7 +23,6 @@ int8_t counter = 0;
 SystemState_t state;
 
 
-
 // --- Control Setpoints (Define these globally) ---
 #define TEMP_OFF_THRESHOLD_C      60.0f
 #define TEMP_MAX_RAMP_C           90.0f
@@ -39,10 +38,11 @@ static void inline updatePowerScope()
 	int16_t temp[DataStream_NUMBER_OF_CHANNELS];
 	
 //	temp[0] = (int16_t)(IOUT_CountsToAmps(IOUT));
-	temp[0] = (int16_t)((IOUT));
+	temp[0] = (int16_t)(10*IOUT_CountsToAmps(IOUT));
 	temp[1] = (int16_t)(10*VOUT_CountsToVolts(VOUT));
 	temp[2] = (int16_t)(10*TEMP_CountsToCelsius(TEMP1));		
 	temp[3] = (int16_t)(10*TEMP_CountsToCelsius(TEMP2));
+	
 	
 	temp[4] = counter;
 	temp[5] = (int16_t)(ADC_config.filter);

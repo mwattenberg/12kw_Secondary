@@ -14,8 +14,8 @@
 #define VOUT_VoltsToCountsGain 			(1/VOUT_CountsToVoltsGain)
 #define VOUT_VoltsToCounts(volts)		((volts) * VOUT_VoltsToCountsGain)
 
-#define IOUT_Offset						(2048)
-#define IOUT_CountsToAmpsGain 			(0.00691f)
+#define IOUT_Offset						(2046)
+#define IOUT_CountsToAmpsGain 			(0.3846f)
 #define IOUT_CountsToAmps(counts)		((counts - IOUT_Offset) * IOUT_CountsToAmpsGain)
 #define IOUT_AmpsToCountsGain 			(1/IOUT_CountsToVoltsGain)
 #define IOUT_AmpsToCounts(amps)			((amps) * IOUT_VoltsToCountsGain + IOUT_Offset)
