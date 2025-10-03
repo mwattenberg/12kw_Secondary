@@ -147,7 +147,7 @@ int main(void)
     for (;;)
     {
     	pulsate_led();
-        
+    
 //    	Cy_GPIO_Inv(PIN_EN_OUTPUT_PORT, PIN_EN_OUTPUT_NUM);
 //    	Cy_GPIO_Inv(PIN_DIS_OUTPUT_PORT, PIN_DIS_OUTPUT_NUM);
     }

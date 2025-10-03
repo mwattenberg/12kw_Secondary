@@ -46,7 +46,7 @@ static void inline updatePowerScope()
 	
 	temp[4] = counter;
 	temp[5] = (int16_t)(ADC_config.filter);
-	temp[6] = 0;
+	temp[6] = (int16_t)Cy_GPIO_Read(OCD_PORT, OCD_PIN);
 	temp[7] = 0;
 	
 	counter++;
@@ -196,6 +196,7 @@ void System_UpdateStateMachine()
 		Cy_GPIO_Clr(PIN_LED_FAULT_PORT, PIN_LED_FAULT_PIN);
 		Cy_GPIO_Set(PIN_LED_RUN_PORT, PIN_LED_RUN_PIN);
 		doFanControl();
+		PWM_setOverCurrentThreshold(180.0f);
 			break;
 			
 			
