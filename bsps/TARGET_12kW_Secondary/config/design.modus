@@ -613,8 +613,8 @@
                         </Aliases>
                     </Block>
                     <Parameters>
-                        <Param id="fracDivider" value="8"/>
-                        <Param id="intDivider" value="11"/>
+                        <Param id="fracDivider" value="0"/>
+                        <Param id="intDivider" value="45"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -638,7 +638,7 @@
                     </Block>
                     <Parameters>
                         <Param id="fracDivider" value="0"/>
-                        <Param id="intDivider" value="10"/>
+                        <Param id="intDivider" value="11"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -698,7 +698,7 @@
                     </Block>
                     <Parameters>
                         <Param id="ApiMode" value="HIGH_LEVEL"/>
-                        <Param id="BaudRate" value="2000000"/>
+                        <Param id="BaudRate" value="500000"/>
                         <Param id="BitsOrder" value="CY_SCB_UART_LSB_FIRST"/>
                         <Param id="BreakLevel" value="0"/>
                         <Param id="BreakSignalBits" value="11"/>
@@ -985,13 +985,13 @@
                     </Block>
                     <Parameters>
                         <Param id="ClockPrescaler" value="CY_TCPWM_PWM_PRESCALER_DIVBY_1"/>
-                        <Param id="Compare0" value="16384"/>
+                        <Param id="Compare0" value="360"/>
                         <Param id="Compare0MatchDown" value="false"/>
                         <Param id="Compare0MatchUp" value="true"/>
                         <Param id="Compare1" value="16384"/>
                         <Param id="Compare1MatchDown" value="false"/>
                         <Param id="Compare1MatchUp" value="true"/>
-                        <Param id="Compare2" value="16384"/>
+                        <Param id="Compare2" value="360"/>
                         <Param id="Compare3" value="16384"/>
                         <Param id="CountInput" value="CY_TCPWM_INPUT_DISABLED"/>
                         <Param id="DeadClocks" value="0"/>
@@ -1010,7 +1010,7 @@
                         <Param id="InvertPwm_n" value="false"/>
                         <Param id="Kill0Input" value="CY_TCPWM_INPUT_DISABLED"/>
                         <Param id="Kill1Input" value="CY_TCPWM_INPUT_DISABLED"/>
-                        <Param id="Period0" value="32768"/>
+                        <Param id="Period0" value="720"/>
                         <Param id="Period1" value="32768"/>
                         <Param id="Period_Dithering" value="128"/>
                         <Param id="PwmAlignment" value="CY_TCPWM_PWM_LEFT_ALIGN"/>

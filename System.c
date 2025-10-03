@@ -15,6 +15,7 @@
 #include "cy_scb_spi.h"
 #include "cycfg_peripherals.h"
 #include <string.h>
+#include <math.h> 
 
 DataStream_data_buffer_t buffer;
 
@@ -22,6 +23,15 @@ int8_t counter = 0;
 SystemState_t state;
 
 
+
+// --- Control Setpoints (Define these globally) ---
+#define TEMP_OFF_THRESHOLD_C      60.0f
+#define TEMP_MAX_RAMP_C           90.0f
+#define MAX_DUTY_RATIO            0.5f  // For 50% duty cycle
+
+// --- Shared Variable (Declare only ONCE at file scope for debugging) ---
+static float FAN_duty_cycle = 0.0f;
+static float current_temperature;
 
 static void inline updatePowerScope()
 {
@@ -48,9 +58,53 @@ static void inline updatePowerScope()
 }
 
 
-void doFanControl()
+void doFanControl(void)
 {
-	PWM_fanSetDuty(0.1f);
+    float temp_sensor1;
+    float temp_sensor2;
+    
+    // 1. Read and convert both temperatures
+    temp_sensor1 = (float) TEMP_CountsToCelsius(TEMP1);
+    temp_sensor2 = (float) TEMP_CountsToCelsius(TEMP2);
+
+    // 2. Set current_temperature to the MAXIMUM of the two readings
+    current_temperature = fmaxf(temp_sensor1, temp_sensor2);
+
+    // --- Fan Control Logic (The same as before) ---
+    if (current_temperature < TEMP_OFF_THRESHOLD_C)                                                       
+    {                                                                      
+        // --- 1. Less than 60°C: Fan OFF (0.0 ratio) ---
+		FAN_duty_cycle = 0.0f;                                              
+    }                                                                       
+    else if (current_temperature >= TEMP_MAX_RAMP_C)                              
+    {     
+        // --- 3. More than or equal to 90°C: Constant 50% Max (0.5 ratio) ---
+		FAN_duty_cycle = MAX_DUTY_RATIO;            
+    }                                                                       
+    else                                                                   
+    {        
+		// --- 2. 60°C to 90°C: Linear Ramp (0.0 to 0.5) ---
+
+        // The total temperature range for the ramp (90 - 60 = 30)
+        const float temp_range = TEMP_MAX_RAMP_C - TEMP_OFF_THRESHOLD_C; 
+        
+        // Current temperature difference within the ramp
+        float temp_above_off = current_temperature - TEMP_OFF_THRESHOLD_C;
+
+        // Ratio of the temperature ramp completed (0.0 to 1.0)
+        float temp_ratio = temp_above_off / temp_range;
+
+        // Scale the temperature ratio to the duty cycle ratio (0.0 to 0.5)
+        FAN_duty_cycle = temp_ratio * MAX_DUTY_RATIO;                                                            
+    }
+    
+    // Safety check 
+    if (FAN_duty_cycle > MAX_DUTY_RATIO) {
+        FAN_duty_cycle = MAX_DUTY_RATIO;
+    }
+
+    // Apply the calculated duty cycle ratio (0.0f to 0.5f)
+    PWM_fanSetDuty(FAN_duty_cycle); 
 }
 
 
